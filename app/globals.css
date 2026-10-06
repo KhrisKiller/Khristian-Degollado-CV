@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Dark is the primary identity. Accent = "signal orange", a nod to
+   industrial safety color, used sparingly for action + data.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-grotesk: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
+
+  --color-ink-950: #07080a;
+  --color-ink-900: #0b0c0f;
+  --color-ink-850: #0f1115;
+  --color-ink-800: #14161b;
+  --color-ink-750: #191c22;
+  --color-ink-700: #20242b;
+  --color-ink-600: #2b3038;
+
+  --color-fg: #eceef1;
+  --color-fg-muted: #a3a9b3;
+  --color-fg-subtle: #858c97;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+
+  --color-accent: #ff7a45;
+  --color-accent-soft: #ff9b72;
+  --color-accent-ink: #1a0b04;
+
+  /* Chart palette — validated for the dark surface (CVD + contrast) */
+  --color-series-1: #ec6534;
+  --color-series-2: #3f86ee;
+  --color-series-3: #1a9a71;
+
+  /* Status — reserved, always paired with a label */
+  --color-good: #2fb35a;
+  --color-warning: #fab219;
+  --color-critical: #e05252;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-flow: flow-dash 1.6s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+
+  @keyframes flow-dash {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-ink-950);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: rgb(255 122 69 / 0.35);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+------------------------------------------------------------------- */
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.14) transparent;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Subtle engineering grid used behind a few sections */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ------------------------------------------------------------------
+   Reveal-on-scroll. Pure CSS states toggled by a tiny observer.
+   Content stays visible when JS is unavailable (no .js class).
+------------------------------------------------------------------- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Hero entrance — CSS-driven so first paint never waits on JS.
+------------------------------------------------------------------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: rise 0.9s var(--ease-out-expo) both;
+  animation-delay: calc(var(--intro-delay, 0ms) + var(--d, 0ms));
+}
+
+/* ------------------------------------------------------------------
+   Intro loader — CSS-only timeline; removed from the DOM after it ends.
+------------------------------------------------------------------- */
+:root {
+  --intro-delay: 650ms;
+}
+
+html.kd-skip-intro {
+  --intro-delay: 0ms;
+}
+
+html.kd-skip-intro .intro-loader {
+  display: none;
+}
+
+.intro-loader {
+  animation: intro-out 0.45s var(--ease-out-expo) 0.75s forwards;
+}
+
+.intro-loader__mark {
+  animation: intro-mark 0.7s var(--ease-out-expo) both;
+}
+
+.intro-loader__label {
+  animation: intro-mark 0.7s var(--ease-out-expo) 0.12s both;
+}
+
+.intro-loader__bar {
+  transform-origin: left;
+  animation: intro-bar 0.7s var(--ease-out-expo) 0.05s both;
+}
+
+@keyframes intro-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes intro-mark {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    letter-spacing: 0.4em;
+  }
+}
+
+@keyframes intro-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader {
+    display: none;
+  }
+  :root {
+    --intro-delay: 0ms;
+  }
+}
+
+.intro-l-es {
+  display: none;
+}
+html[lang="es"] .intro-l-es {
+  display: inline;
+}
+html[lang="es"] .intro-l-en {
+  display: none;
+}
+
+@keyframes aura-marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 122 69 / 0.5);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 12px rgb(255 122 69 / 0);
+  }
+}
