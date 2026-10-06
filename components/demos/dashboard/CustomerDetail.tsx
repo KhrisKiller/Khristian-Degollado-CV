@@ -16,19 +16,19 @@ const HEALTH_STYLE = {
   risk: "border-critical/30 bg-critical/10 [--dot:var(--color-critical)]",
 } as const;
 
-type Props = { customer: CustomerRow | null; period: PeriodId; onClose: () => void };
+type Props = { customer: CustomerRow | null; avgDso: number; period: PeriodId; onClose: () => void };
 
-export function CustomerDetail({ customer, period, onClose }: Props) {
+export function CustomerDetail({ customer, avgDso, period, onClose }: Props) {
   return (
     <Dialog open={customer !== null} onClose={onClose} labelledBy="customer-detail-title" variant="drawer" contained>
-      {customer ? <Body customer={customer} period={period} onClose={onClose} /> : null}
+      {customer ? <Body customer={customer} avgDso={avgDso} period={period} onClose={onClose} /> : null}
     </Dialog>
   );
 }
 
-function Body({ customer, period, onClose }: Props & { customer: CustomerRow }) {
+function Body({ customer, avgDso, period, onClose }: Props & { customer: CustomerRow }) {
   const { t, l, lang } = useI18n();
-  const c = t.dashboard.customer;
+  const c = { ...t.dashboard.customer, insight: t.dashboard.customerInsight };
   const max = Math.max(...customer.byQuarter);
   const activeQ = period === "FY" ? null : Number(period[1]) - 1;
 
@@ -60,6 +60,13 @@ function Body({ customer, period, onClose }: Props & { customer: CustomerRow }) 
       </div>
 
       <div className="space-y-5 px-5 py-5">
+        <p className="rounded-lg border border-line bg-ink-900 p-3.5 text-[13px] leading-relaxed text-fg">
+          {customer.health === "risk"
+            ? c.insight.risk(formatPercent(customer.otif, lang))
+            : customer.health === "watch"
+              ? c.insight.watch(customer.dso, avgDso)
+              : c.insight.healthy(customer.dso)}
+        </p>
         <dl className="grid grid-cols-2 gap-2">
           {stats.map((s) => (
             <div key={s.label} className="rounded-lg border border-line bg-ink-900 p-3">

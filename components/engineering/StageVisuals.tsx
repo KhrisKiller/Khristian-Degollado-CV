@@ -16,7 +16,7 @@ export function StageVisual({ stage }: { stage: number }) {
     case 3:
       return <SystemVisual />;
     case 4:
-      return <DashboardVisual />;
+      return <InsightVisual />;
     default:
       return <DecisionVisual />;
   }
@@ -143,33 +143,57 @@ function SystemVisual() {
   );
 }
 
-function DashboardVisual() {
+function InsightVisual() {
   const { t } = useI18n();
-  const v = t.approach.visuals.dashboard;
-  const bars = [62, 58, 51, 47, 40, 33, 27, 22];
+  const v = t.approach.visuals.insight;
+  const rows = [
+    { name: "Flor", sku: "FL-020", stock: 0, min: 150, days: 0, status: "out" as const },
+    { name: "Mega FDA", sku: "MF-100", stock: 120, min: 250, days: 5, status: "low" as const },
+    { name: "Colchón", sku: "CL-300", stock: 42, min: 50, days: 14, status: "low" as const },
+  ];
   return (
-    <div className="flex h-full flex-col justify-center gap-3">
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { label: v.coverage, value: `4.8 ${v.days}`, tone: "text-warning" },
-          { label: v.low, value: "3", tone: "text-warning" },
-          { label: v.value, value: "$412K", tone: "text-fg" },
-        ].map((k) => (
-          <div key={k.label} className="rounded-xl border border-line bg-ink-850 p-3">
-            <p className="text-[11px] text-fg-subtle">{k.label}</p>
-            <p className={cn("mt-1 text-lg font-semibold tabular", k.tone)}>{k.value}</p>
-          </div>
-        ))}
-      </div>
-      <div className="relative flex h-32 items-end gap-2 rounded-xl border border-line bg-ink-850 px-4 pb-3 pt-4">
-        <span aria-hidden className="absolute inset-x-4 border-t border-dashed border-warning/60" style={{ bottom: `calc(0.75rem + ${35}%)` }} />
-        {bars.map((h, i) => (
-          <span
-            key={i}
-            className={cn("flex-1 origin-bottom rounded-t-[4px] [animation:grow_0.8s_cubic-bezier(0.16,1,0.3,1)_both]", h < 35 ? "bg-warning/80" : "bg-series-1")}
-            style={{ height: `${h}%`, animationDelay: `${i * 60}ms` }}
-          />
-        ))}
+    <div className="flex h-full items-center">
+      <div className="w-full overflow-hidden rounded-2xl border border-line-strong bg-ink-850">
+        <p className="flex items-center justify-between border-b border-line px-4 py-3 text-sm font-medium">
+          {v.title}
+          <span className="rounded-full bg-warning/15 px-2 text-[11px] tabular text-warning">{rows.length}</span>
+        </p>
+        <ul className="divide-y divide-line">
+          {rows.map((r, i) => (
+            <li
+              key={r.sku}
+              className="flex items-center gap-4 px-4 py-3 opacity-0 [animation:rise_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]"
+              style={{ animationDelay: `${100 + i * 120}ms` }}
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-sm text-fg">{r.name}</p>
+                <p className="font-mono text-[11px] text-fg-subtle">
+                  {r.sku} · {r.stock}/{r.min} · {r.days} {v.coverage}
+                </p>
+                <span className="relative mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]" aria-hidden>
+                  <span
+                    className={cn("absolute inset-y-0 left-0 rounded-full", r.status === "out" ? "bg-critical" : "bg-warning/80")}
+                    style={{ width: `${(r.stock / (r.min * 1.6)) * 100}%` }}
+                  />
+                  <span className="absolute inset-y-0 w-px bg-fg/70" style={{ left: `${100 / 1.6}%` }} />
+                </span>
+              </div>
+              <span
+                className={cn(
+                  "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] text-fg",
+                  r.status === "out" ? "border-critical/30 bg-critical/10" : "border-warning/25 bg-warning/10",
+                )}
+              >
+                <span className={cn("size-1.5 rounded-full", r.status === "out" ? "bg-critical" : "bg-warning")} aria-hidden />
+                {r.status === "out" ? v.out : v.low}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="flex items-center gap-2 border-t border-line px-4 py-2.5 text-[11px] text-fg-subtle">
+          <span className="h-3 w-px bg-fg/70" aria-hidden />
+          {v.min}
+        </p>
       </div>
     </div>
   );

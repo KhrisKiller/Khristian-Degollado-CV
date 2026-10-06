@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useI18n } from "@/components/providers/LanguageProvider";
 import { Dialog } from "@/components/ui/Dialog";
 import { BrowserFrame } from "@/components/ui/Frames";
+import { InteractHint } from "@/components/ui/InteractHint";
 import { LazyMount } from "@/components/ui/LazyMount";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -34,7 +35,7 @@ export function WebShowcase() {
   return (
     <section id="web" aria-labelledby="web-title" className="relative border-t border-line py-24 md:py-32">
       <div className="container-page">
-        <SectionHeader index="02" eyebrow={t.web.eyebrow} title={t.web.title} subtitle={t.web.subtitle} titleId="web-title" />
+        <SectionHeader index="05" eyebrow={t.web.eyebrow} chapter={t.web.chapter} title={t.web.title} subtitle={t.web.subtitle} titleId="web-title" />
 
         {/* Controls */}
         <Reveal className="mt-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -100,7 +101,9 @@ export function WebShowcase() {
             <div className="mx-auto transition-[max-width] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" style={{ maxWidth: WIDTH[device] }}>
               <BrowserFrame url={DEMOS[demo].url} label={t.web.demoLabel}>
                 <LazyMount className="h-[min(78vh,760px)] min-h-[560px]">
-                  <Demo key={demo} />
+                  <InteractHint label={t.web.tryOverlay}>
+                    <Demo key={demo} />
+                  </InteractHint>
                 </LazyMount>
               </BrowserFrame>
             </div>

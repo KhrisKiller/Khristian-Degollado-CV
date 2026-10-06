@@ -4,14 +4,18 @@ Personal portfolio and CV for **Khristian Degollado** — Industrial Engineer ·
 
 The site is built as a *proof of capability*: instead of describing what I can build, every section is a working example.
 
-| Section | What it demonstrates |
-| --- | --- |
-| Hero | Animated operations pipeline (Operations → Data → System → Insights → Decisions) |
-| Web | **AURA** (editorial coffee brand) and **NOVA** (dark data SaaS) — two fully interactive sites with different identities, resizable to tablet/mobile |
-| Systems | **Stockline**, an inventory management app: KPIs, filters, sortable table, product detail with stock history, movement registration with validation |
-| Data | **BI dashboard**: period filters that recompute every KPI and chart, KPI drill-downs with data tables, customer performance |
-| Approach | Scroll-driven story: Real problem → Process → Data → Digital system → Dashboard → Better decision |
-| Experience / Skills / CV / Contact | Timeline, skills with links to where they're demonstrated, downloadable PDF |
+The page follows one thread, *Engineering thinking. Digital execution.*:
+
+| # | Section | Line of the thread | What it demonstrates |
+| --- | --- | --- | --- |
+| – | Hero | | Name, role, verified work, and the interactive Operations → Data → System → Insights → Decisions pipeline (autoplays, follows scroll, holds on hover/tap, links to its proof) |
+| 01 | The thread | | Six statements, each linking to the section that proves it |
+| 02 | Inventory Systems | I organize data. I build systems. | **Stockline**: quick actions mapped to floor events, filters, sortable table, product detail with coverage and stock history, validated movement registration |
+| 03 | Decision Dashboards | I visualize information. | **BI dashboard**: written period summary, period filters that recompute every KPI, KPI definitions/formulas/"why it matters", customer drill-downs |
+| 04 | Approach | I understand problems. I help people decide. | Stockout case study (Problem → Process → Data → System → Insight → Decision) and "How I approach a problem" |
+| 05 | Web Experiences | Systems run the operation; websites are where customers meet it. | **AURA** and **NOVA**, two fully interactive sites with opposite identities, resizable to tablet/mobile |
+| 06 | Experience | I understand processes. | Real operations → Engineering → Digital systems, from the CV |
+| 07–08 | Toolkit, CV, Contact | | Skills with links to proof, EN/ES CV download, email/WhatsApp/LinkedIn/GitHub |
 
 ## Stack
 
@@ -30,21 +34,13 @@ npm run typecheck
 
 Deploys to Vercel with zero configuration. Set `NEXT_PUBLIC_SITE_URL` to your production domain so Open Graph and sitemap URLs are absolute (on Vercel, the production URL is detected automatically).
 
-## Before publishing — personal details
+## Personal details and CV
 
-Contact links live in one file: **`data/profile.ts`**.
+Contact links live in one file: **`data/profile.ts`** (email, WhatsApp, LinkedIn, GitHub, CV paths).
 
-- `email` — currently a placeholder (`hello@example.com`)
-- `linkedin` — currently points to linkedin.com
-- `github` — `https://github.com/KhrisKiller`
+The CV buttons serve `public/cv/Khristian-Degollado-CV.pdf` (English) and `public/cv/Khristian-Degollado-CV-ES.pdf` (Spanish); the site offers the visitor's current language first. Replace either file at the same path to update it.
 
-## CV
-
-The download buttons point to `public/cv/Khristian-Degollado-CV.pdf`. A one-page PDF generated from `scripts/cv-template.html` is included; replace the file at the same path with your own CV at any time — no UI changes needed. To regenerate from the template (requires Playwright with Chromium):
-
-```bash
-npm run cv:pdf
-```
+Experience, education, certifications and skills on the site are taken from those CVs.
 
 ## Languages
 
@@ -57,14 +53,13 @@ All copy lives in `lib/i18n/en.ts` and `lib/i18n/es.ts`; the Spanish dictionary 
 app/                  layout, page, metadata routes (icon, OG image, robots, sitemap, manifest)
 components/
   layout/             navbar, footer, language switcher, scroll progress, intro loader
-  hero/  portfolio/   hero + capabilities, web showcase, systems/data showcases
+  hero/  portfolio/   hero + pipeline, the thread, systems/data/web showcases
   demos/              aura/  nova/  inventory/  dashboard/  (each lazy-loaded in its own chunk)
   engineering/  experience/  skills/  contact/
   ui/                 primitives: Reveal, Dialog (focus-trapped), Counter, frames, error boundary
 data/                 mock datasets: products, inventory, movements, sales, customers, aura, nova
 lib/                  i18n, formatting, deterministic PRNG
-public/cv/            downloadable CV
-scripts/              CV template + PDF generator
+public/cv/            downloadable CVs (EN, ES)
 ```
 
 ## Quality notes

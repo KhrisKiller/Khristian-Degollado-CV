@@ -5,6 +5,8 @@ import { Reveal } from "./Reveal";
 type Props = {
   index: string;
   eyebrow: string;
+  /** The line of "the thread" this section proves. */
+  chapter?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   align?: "left" | "center";
@@ -12,7 +14,7 @@ type Props = {
   titleId?: string;
 };
 
-export function SectionHeader({ index, eyebrow, title, subtitle, align = "left", className, titleId }: Props) {
+export function SectionHeader({ index, eyebrow, chapter, title, subtitle, align = "left", className, titleId }: Props) {
   return (
     <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
       <Reveal>
@@ -27,6 +29,16 @@ export function SectionHeader({ index, eyebrow, title, subtitle, align = "left",
           {eyebrow}
         </p>
       </Reveal>
+      {chapter ? (
+        <Reveal delay={30}>
+          <p className={cn("mt-4 flex items-baseline gap-2 text-[15px] font-medium text-accent-soft", align === "center" && "justify-center")}>
+            <span aria-hidden className="font-mono text-xs text-accent/70">
+              ↳
+            </span>
+            {chapter}
+          </p>
+        </Reveal>
+      ) : null}
       <Reveal delay={60}>
         <h2
           id={titleId}

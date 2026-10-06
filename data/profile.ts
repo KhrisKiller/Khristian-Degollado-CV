@@ -1,14 +1,20 @@
-/**
- * Personal links in one place. Replace the placeholders below with real
- * contact details — every button on the site reads from here.
- */
+import type { Lang } from "@/lib/i18n/types";
+
+/** Personal details in one place — every contact button on the site reads from here. */
 export const profile = {
   name: "Khristian Degollado",
   brand: "KHRISTIAN.DEV",
-  // TODO: replace with a real address before publishing.
-  email: "hello@example.com",
-  // TODO: replace with the real LinkedIn profile URL.
-  linkedin: "https://www.linkedin.com/",
+  email: "khristiandegollado02@gmail.com",
+  linkedin: "https://www.linkedin.com/in/khristian-degollado",
   github: "https://github.com/KhrisKiller",
-  cvPath: "/cv/Khristian-Degollado-CV.pdf",
+  /** International format, digits only (used for wa.me links). */
+  whatsapp: "524401468110",
+  cv: {
+    en: "/cv/Khristian-Degollado-CV.pdf",
+    es: "/cv/Khristian-Degollado-CV-ES.pdf",
+  } satisfies Record<Lang, string>,
 } as const;
+
+export function whatsappHref(message: string) {
+  return `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(message)}`;
+}

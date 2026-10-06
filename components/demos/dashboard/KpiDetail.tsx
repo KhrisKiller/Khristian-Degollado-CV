@@ -83,10 +83,20 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
           </p>
         </div>
 
-        <section>
-          <h5 className="text-[12px] font-medium text-fg-muted">{d.detail.definition}</h5>
-          <p className="mt-1 text-[13px] leading-relaxed text-fg">{d.kpiHelp[kpi]}</p>
-        </section>
+        <dl className="space-y-3 rounded-lg border border-line bg-ink-900 p-3.5">
+          <div>
+            <dt className="text-[11px] text-fg-subtle">{d.detail.definition}</dt>
+            <dd className="mt-0.5 text-[13px] leading-relaxed text-fg">{d.kpiHelp[kpi]}</dd>
+          </div>
+          <div>
+            <dt className="text-[11px] text-fg-subtle">{d.detail.formula}</dt>
+            <dd className="mt-1 rounded-md bg-white/[0.04] px-2.5 py-1.5 font-mono text-[12px] text-fg">{d.kpiFormula[kpi]}</dd>
+          </div>
+          <div>
+            <dt className="text-[11px] text-fg-subtle">{d.detail.why}</dt>
+            <dd className="mt-0.5 text-[13px] leading-relaxed text-fg-muted">{d.kpiWhy[kpi]}</dd>
+          </div>
+        </dl>
 
         <section>
           <h5 className="text-[12px] font-medium text-fg-muted">{d.detail.breakdown}</h5>
@@ -127,7 +137,9 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
         <div className="flex gap-3 rounded-lg border border-accent/25 bg-accent/[0.06] p-3">
           <Lightbulb className="mt-0.5 size-4 shrink-0 text-accent-soft" aria-hidden />
           <p className="text-[13px] leading-relaxed text-fg">
-            <span className="sr-only">{d.detail.insightTitle}: </span>
+            <span className="mr-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-accent-soft">
+              {d.detail.insightTitle} · 2026
+            </span>
             {d.insights[kpi]}
           </p>
         </div>

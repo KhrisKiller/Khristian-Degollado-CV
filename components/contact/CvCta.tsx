@@ -7,7 +7,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { profile } from "@/data/profile";
 
 export function CvCta() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const other = lang === "en" ? "es" : "en";
   return (
     <section id="cv" aria-labelledby="cv-title" className="border-t border-line py-20 md:py-28">
       <div className="container-page">
@@ -19,13 +20,17 @@ export function CvCta() {
               {t.cv.title}
             </h2>
             <p className="mt-3 max-w-lg text-fg-muted">{t.cv.text}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <ButtonLink href={profile.cvPath} download size="lg">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <ButtonLink href={profile.cv[lang]} download size="lg">
                 <Download className="size-4" aria-hidden />
-                {t.cv.button}
+                {t.cv[lang]}
               </ButtonLink>
-              <span className="font-mono text-xs text-fg-subtle">{t.cv.meta}</span>
+              <ButtonLink href={profile.cv[other]} download variant="secondary" size="lg" lang={other}>
+                <Download className="size-4" aria-hidden />
+                {t.cv[other]}
+              </ButtonLink>
             </div>
+            <p className="mt-4 font-mono text-xs text-fg-subtle">{t.cv.meta}</p>
           </div>
           {/* Document preview */}
           <div aria-hidden className="relative mx-auto hidden w-48 rotate-3 rounded-xl border border-line-strong bg-ink-800 p-5 shadow-2xl transition-transform duration-700 hover:rotate-0 md:block">

@@ -14,6 +14,7 @@ import { MOVEMENT_ICON } from "./ui";
 type Props = {
   open: boolean;
   presetSku?: string;
+  presetType?: MovementType;
   products: Product[];
   onClose: () => void;
   onSubmit: (input: RegisterInput) => void;
@@ -27,11 +28,11 @@ export function MovementForm(props: Props) {
   );
 }
 
-function FormBody({ presetSku, products, onClose, onSubmit }: Props) {
+function FormBody({ presetSku, presetType, products, onClose, onSubmit }: Props) {
   const { t, l, lang } = useI18n();
   const f = t.inventory.form;
   const [sku, setSku] = useState(presetSku ?? products[0].sku);
-  const [type, setType] = useState<MovementType>("inbound");
+  const [type, setType] = useState<MovementType>(presetType ?? "inbound");
   const [qty, setQty] = useState("");
   const [ref, setRef] = useState("");
   const [error, setError] = useState<string | null>(null);

@@ -46,9 +46,9 @@ function DrawerBody({ product, history, movements, onClose, onRegister }: Props 
 
   const stats = [
     { label: inv.detail.current, value: formatNumber(product.stock, lang), strong: true },
-    { label: inv.detail.min, value: formatNumber(product.min, lang) },
+    { label: inv.detail.min, value: formatNumber(product.min, lang), help: inv.detail.minHelp },
     { label: inv.detail.value, value: formatCurrency(stockValue(product), lang) },
-    { label: inv.detail.coverage, value: product.stock === 0 ? "0" : `${formatNumber(days, lang, 1)} ${inv.detail.days}` },
+    { label: inv.detail.coverage, value: product.stock === 0 ? "0" : `${formatNumber(days, lang, 1)} ${inv.detail.days}`, help: inv.detail.coverageHelp },
   ];
 
   return (
@@ -77,6 +77,7 @@ function DrawerBody({ product, history, movements, onClose, onRegister }: Props 
             <div key={s.label} className="rounded-lg border border-line bg-ink-900 p-3">
               <dt className="text-[11px] text-fg-subtle">{s.label}</dt>
               <dd className={cn("mt-1 tabular", s.strong ? "text-xl font-semibold" : "text-[15px]")}>{s.value}</dd>
+              {"help" in s && s.help ? <dd className="mt-1 text-[11px] leading-snug text-fg-subtle">{s.help}</dd> : null}
             </div>
           ))}
         </dl>

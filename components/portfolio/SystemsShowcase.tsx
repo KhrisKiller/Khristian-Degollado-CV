@@ -1,56 +1,41 @@
 "use client";
 
-import { Check, MousePointerClick } from "lucide-react";
+import { BellRing, Check, MousePointerClick } from "lucide-react";
 import type { ReactNode } from "react";
 import { useI18n } from "@/components/providers/LanguageProvider";
 import { AppFrame } from "@/components/ui/Frames";
+import { InteractHint } from "@/components/ui/InteractHint";
 import { LazyMount } from "@/components/ui/LazyMount";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cn } from "@/lib/cn";
 import { DashboardDemo, InventoryDemo } from "./lazy-demos";
 
-type BlockProps = {
-  id?: string;
-  title: string;
-  subtitle: string;
-  points: string[];
-  hint: string;
-  windowTitle: string;
-  children: ReactNode;
-};
-
-function SystemBlock({ id, title, subtitle, points, hint, windowTitle, children }: BlockProps) {
+function DemoStage({ windowTitle, hint, children }: { windowTitle: string; hint: string; children: ReactNode }) {
   const { t } = useI18n();
   return (
-    <div id={id} className="scroll-mt-20">
-      <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end">
-        <Reveal>
-          <h3 className="text-balance text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em]">{title}</h3>
-          <p className="mt-3 max-w-lg text-pretty text-fg-muted">{subtitle}</p>
-        </Reveal>
-        <Reveal delay={80}>
-          <ul className="grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
-            {points.map((p) => (
-              <li key={p} className="flex gap-2.5 text-sm text-fg-muted">
-                <Check className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
-                {p}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
-      <Reveal delay={120} className="mt-8">
-        <AppFrame title={windowTitle} label={t.web.demoLabel}>
-          <LazyMount className="h-[min(84vh,760px)] min-h-[620px]">{children}</LazyMount>
-        </AppFrame>
-        <p className="mt-4 flex items-center gap-2 text-sm text-fg-subtle">
+    <Reveal delay={120} className="mt-10">
+      <AppFrame title={windowTitle} label={t.liveDemo}>
+        <LazyMount className="h-[min(84vh,760px)] min-h-[620px]">
+          <InteractHint label={t.web.tryOverlay}>{children}</InteractHint>
+        </LazyMount>
+      </AppFrame>
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p className="flex items-center gap-2 text-sm text-fg-muted">
           <MousePointerClick className="size-4 shrink-0 text-accent" aria-hidden />
           {hint}
         </p>
-      </Reveal>
-    </div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fg-subtle">{t.builtToDemonstrate}</p>
+      </div>
+    </Reveal>
   );
 }
+
+const EFFECT_STYLE: Record<string, string> = {
+  "+": "border-good/30 bg-good/10 text-good",
+  "−": "border-line-strong bg-white/[0.04] text-fg",
+  "=": "border-accent/30 bg-accent/10 text-accent-soft",
+};
 
 export function SystemsShowcase() {
   const { t } = useI18n();
@@ -59,18 +44,38 @@ export function SystemsShowcase() {
     <section id="systems" aria-labelledby="systems-title" className="relative border-t border-line py-24 md:py-32">
       <div aria-hidden className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-96 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="container-page relative">
-        <SectionHeader index="03" eyebrow={s.eyebrow} title={s.title} subtitle={s.subtitle} titleId="systems-title" />
-        <div className="mt-16">
-          <SystemBlock
-            title={s.inventory.title}
-            subtitle={s.inventory.subtitle}
-            points={s.inventory.points}
-            hint={s.inventory.hint}
-            windowTitle={`${t.inventory.appName} — ${t.inventory.workspace}`}
-          >
-            <InventoryDemo />
-          </SystemBlock>
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+          <SectionHeader index="02" eyebrow={s.eyebrow} chapter={s.chapter} title={s.title} subtitle={s.subtitle} titleId="systems-title" />
+
+          {/* How stock moves: the operational model behind the interface */}
+          <Reveal delay={100}>
+            <figure className="rounded-2xl border border-line bg-ink-900 p-5">
+              <figcaption className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-subtle">{s.model.title}</figcaption>
+              <ul className="mt-4 divide-y divide-line">
+                {s.model.flows.map((f) => (
+                  <li key={f.type} className="flex items-center gap-3 py-2.5 text-sm">
+                    <span
+                      className={cn("grid size-7 shrink-0 place-items-center rounded-md border font-mono text-sm", EFFECT_STYLE[f.effect])}
+                      aria-hidden
+                    >
+                      {f.effect}
+                    </span>
+                    <span className="flex-1 text-fg-muted">{f.event}</span>
+                    <span className="rounded-full border border-line px-2.5 py-0.5 text-xs text-fg">{f.type}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 flex gap-2.5 rounded-xl border border-warning/25 bg-warning/[0.06] p-3 text-[13px] leading-relaxed text-fg">
+                <BellRing className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+                {s.model.rule}
+              </p>
+            </figure>
+          </Reveal>
         </div>
+
+        <DemoStage windowTitle={`${t.inventory.appName} · ${t.inventory.workspace}`} hint={s.hint}>
+          <InventoryDemo />
+        </DemoStage>
       </div>
     </section>
   );
@@ -78,22 +83,26 @@ export function SystemsShowcase() {
 
 export function DataShowcase() {
   const { t } = useI18n();
-  const s = t.systems;
+  const s = t.dashboardSection;
   return (
     <section id="dashboard" aria-labelledby="dashboard-title" className="relative border-t border-line py-24 md:py-32">
       <div className="container-page">
-        <SectionHeader index="04" eyebrow={s.dataEyebrow} title={s.dashboard.title} subtitle={s.dashboard.subtitle} titleId="dashboard-title" />
-        <div className="mt-12">
-          <SystemBlock
-            title={t.dashboard.company}
-            subtitle={s.dashboard.context}
-            points={s.dashboard.points}
-            hint={s.dashboard.hint}
-            windowTitle={`${t.dashboard.company} — ${t.dashboard.title}`}
-          >
-            <DashboardDemo />
-          </SystemBlock>
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+          <SectionHeader index="03" eyebrow={s.eyebrow} chapter={s.chapter} title={s.title} subtitle={s.subtitle} titleId="dashboard-title" />
+          <Reveal delay={100}>
+            <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {s.points.map((p) => (
+                <li key={p} className="flex gap-2.5 text-sm text-fg-muted">
+                  <Check className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
+        <DemoStage windowTitle={`${t.dashboard.company} · ${t.dashboard.title}`} hint={s.hint}>
+          <DashboardDemo />
+        </DemoStage>
       </div>
     </section>
   );

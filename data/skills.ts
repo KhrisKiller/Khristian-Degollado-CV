@@ -1,53 +1,53 @@
 import type { Localized } from "@/lib/i18n/types";
 
-export type ProofKey = "inventory" | "dashboard" | "approach" | "web" | "site";
+export type ProofKey = "inventory" | "dashboard" | "approach" | "web" | "experience" | "site";
 
 export const PROOF_HREF: Record<ProofKey, string> = {
   inventory: "#systems",
   dashboard: "#dashboard",
   approach: "#about",
   web: "#web",
+  experience: "#experience",
   site: "#top",
 };
 
-/** Same order as the dictionary's `skills.groups`. */
+const same = (s: string): Localized => ({ en: s, es: s });
+
+/** Same order as the dictionary's `skills.groups`. Sourced from the CV. */
 export const skillGroups: { items: Localized[]; proof: ProofKey[] }[] = [
   {
     items: [
-      { en: "Process Analysis", es: "Análisis de procesos" },
-      { en: "Inventory Management", es: "Gestión de inventarios" },
-      { en: "Operations", es: "Operaciones" },
-      { en: "Continuous Improvement", es: "Mejora continua" },
+      { en: "Process analysis", es: "Análisis de procesos" },
+      { en: "Inventory control", es: "Control de inventarios" },
+      { en: "Inventory forecasting", es: "Pronóstico de inventario" },
+      { en: "Process documentation", es: "Documentación de procesos" },
+      { en: "Continuous improvement", es: "Mejora continua" },
     ],
-    proof: ["approach", "inventory"],
+    proof: ["approach", "experience"],
   },
   {
     items: [
-      { en: "Excel", es: "Excel" },
-      { en: "Dashboards", es: "Dashboards" },
-      { en: "Data Visualization", es: "Visualización de datos" },
-      { en: "Business Systems", es: "Sistemas de negocio" },
+      { en: "Inventory systems (catalog, BOM, movements, valuation)", es: "Sistemas de inventario (catálogo, BOM, movimientos, valuación)" },
+      { en: "KPI dashboards", es: "Dashboards de KPIs" },
+      { en: "Excel: pivot tables, INDEX/MATCH, SUMIFS, VLOOKUP", es: "Excel: tablas dinámicas, INDEX/MATCH, SUMIFS, BUSCARV" },
+      { en: "Data validation & cleanup", es: "Validación y depuración de datos" },
+      { en: "Inventory reconciliation", es: "Conciliación de inventario" },
     ],
-    proof: ["dashboard", "inventory"],
+    proof: ["inventory", "dashboard"],
   },
   {
-    items: [
-      { en: "React", es: "React" },
-      { en: "Next.js", es: "Next.js" },
-      { en: "TypeScript", es: "TypeScript" },
-      { en: "JavaScript", es: "JavaScript" },
-      { en: "Tailwind CSS", es: "Tailwind CSS" },
-    ],
+    items: [same("HTML & CSS"), same("JavaScript"), same("TypeScript"), same("React"), same("Next.js"), same("Tailwind CSS"), same("Python"), same("JSON")],
     proof: ["web", "site"],
   },
   {
     items: [
-      { en: "Git", es: "Git" },
-      { en: "GitHub", es: "GitHub" },
-      { en: "Vercel", es: "Vercel" },
-      { en: "QuickBooks", es: "QuickBooks" },
-      { en: "ClickUp", es: "ClickUp" },
+      { en: "QuickBooks Online (Certified ProAdvisor)", es: "QuickBooks Online (Certified ProAdvisor)" },
+      same("Cloudflare"),
+      same("Vercel"),
+      same("Git & GitHub"),
+      same("Google Sheets"),
+      same("ClickUp"),
     ],
-    proof: ["site"],
+    proof: ["experience", "site"],
   },
 ];

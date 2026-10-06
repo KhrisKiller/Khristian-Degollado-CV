@@ -38,7 +38,7 @@ function useActiveNav(): NavKey | null {
 }
 
 export function Navbar() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const active = useActiveNav();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -153,7 +153,7 @@ export function Navbar() {
           <div className="flex items-center justify-between">
             <LanguageSwitcher className="text-sm" />
             <a
-              href={profile.cvPath}
+              href={profile.cv[lang]}
               download
               className="inline-flex items-center gap-1.5 text-sm text-fg-muted hover:text-fg"
             >

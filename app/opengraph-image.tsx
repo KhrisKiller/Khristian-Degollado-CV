@@ -24,7 +24,7 @@ export default function OpengraphImage() {
           color: "#eceef1",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 24, letterSpacing: 4 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 24, letterSpacing: 4, width: "100%" }}>
           <div
             style={{
               display: "flex",
@@ -43,10 +43,13 @@ export default function OpengraphImage() {
             KD
           </div>
           KHRISTIAN.DEV
+          <div style={{ display: "flex", marginLeft: "auto", fontSize: 20, letterSpacing: 0, color: "#a3a9b3" }}>
+            Engineering thinking. Digital execution.
+          </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 34, color: "#a3a9b3" }}>Khristian Degollado</div>
+          <div style={{ fontSize: 34, color: "#eceef1", fontWeight: 600 }}>Khristian Degollado</div>
           <div style={{ display: "flex", flexWrap: "wrap", fontSize: 68, fontWeight: 700, letterSpacing: -2.5, lineHeight: 1.05, marginTop: 14, maxWidth: 980 }}>
             <span>Industrial Engineer building&nbsp;</span>
             <span style={{ color: "#ff7a45" }}>digital solutions&nbsp;</span>

@@ -6,13 +6,16 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { useI18n } from "@/components/providers/LanguageProvider";
 import { Counter } from "@/components/ui/Counter";
 import { coverageDays, stockStatus, stockValue, suggestedReorder } from "@/data/inventory";
-import { MOVEMENT_TYPES, type Movement } from "@/data/movements";
+import { MOVEMENT_TYPES, type Movement, type MovementType } from "@/data/movements";
 import { categories, type CategoryId, type Product } from "@/data/products";
 import { cn } from "@/lib/cn";
 import { formatCompactCurrency, formatCurrency, formatNumber } from "@/lib/format";
 import { AXIS_TICK, ChartTooltipBox, GRID_STROKE, SERIES } from "../chart-ui";
 import type { Filters } from "./InventoryApp";
-import { Panel, StatusBadge } from "./ui";
+import { MOVEMENT_ICON, Panel, StatusBadge } from "./ui";
+
+/** Everyday floor events, in the order they usually happen. */
+const QUICK: MovementType[] = ["inbound", "production", "outbound", "adjustment"];
 
 type Props = {
   products: Product[];
@@ -20,10 +23,11 @@ type Props = {
   now: number;
   onOpenInventory: (patch?: Partial<Filters>) => void;
   onOpenMovements: () => void;
+  onQuickAction: (type: MovementType) => void;
   onSelect: (sku: string) => void;
 };
 
-export function InventoryDashboardView({ products, movements, now, onOpenInventory, onOpenMovements, onSelect }: Props) {
+export function InventoryDashboardView({ products, movements, now, onOpenInventory, onOpenMovements, onQuickAction, onSelect }: Props) {
   const { t, l, lang } = useI18n();
   const inv = t.inventory;
 
@@ -65,6 +69,33 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
 
   return (
     <div className="space-y-4">
+      <section aria-labelledby="inv-quick-title">
+        <h4 id="inv-quick-title" className="sr-only">
+          {inv.quick.title}
+        </h4>
+        <ul className="grid grid-cols-2 gap-2 @3xl:grid-cols-4">
+          {QUICK.map((type) => {
+            const Icon = MOVEMENT_ICON[type];
+            return (
+              <li key={type}>
+                <button
+                  type="button"
+                  onClick={() => onQuickAction(type)}
+                  className="group flex w-full items-center gap-2.5 rounded-xl border border-line bg-ink-850 px-3 py-2.5 text-left transition-colors hover:border-accent/40 hover:bg-accent/[0.05]"
+                >
+                  <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-white/[0.03] text-fg-muted transition-colors group-hover:text-accent-soft">
+                    <Icon className="size-3.5" aria-hidden />
+                  </span>
+                  <span className="min-w-0 leading-tight">
+                    <span className="block truncate text-[13px] text-fg">{inv.quick[type]}</span>
+                    <span className="block truncate text-[11px] text-fg-subtle">{inv.movementTypes[type]}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
       <ul className="grid grid-cols-2 gap-3 @2xl:grid-cols-3 @5xl:grid-cols-5">
         {kpis.map((k) => {
           const Icon = k.icon;
@@ -163,6 +194,7 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
               })}
             </ul>
           )}
+          {alerts.length > 0 ? <p className="border-t border-line px-4 py-2.5 text-[11px] text-fg-subtle">{inv.reorderRule}</p> : null}
         </Panel>
       </div>
 

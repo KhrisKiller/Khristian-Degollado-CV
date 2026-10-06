@@ -13,6 +13,7 @@ export function Footer() {
         <div>
           <p className="font-mono text-[13px] font-medium tracking-[0.14em] text-fg">{profile.brand}</p>
           <p className="mt-2 text-sm text-fg-muted">{t.footer.tagline}</p>
+          <p className="mt-1 text-sm text-fg">{t.signature}</p>
           <p className="mt-6 text-xs text-fg-subtle">{t.footer.built}</p>
         </div>
         <div className="flex flex-col items-start gap-5 md:items-end">

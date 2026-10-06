@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
-    "cv:pdf": "node scripts/generate-cv.mjs"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "framer-motion": "^14.0.0",

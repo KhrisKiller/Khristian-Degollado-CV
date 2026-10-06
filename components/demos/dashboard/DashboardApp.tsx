@@ -1,18 +1,18 @@
 "use client";
 
 import { m } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, BarChart3, Minus } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, BarChart3, FileText, Minus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useI18n } from "@/components/providers/LanguageProvider";
 import { Counter } from "@/components/ui/Counter";
 import { customerRows } from "@/data/customers";
-import { aging, PERIODS, previousSummary, series, summarize, type PeriodId } from "@/data/sales";
+import { aging, OTIF_TARGET, PERIODS, previousSummary, series, summarize, type PeriodId } from "@/data/sales";
 import { cn } from "@/lib/cn";
-import { formatNumber } from "@/lib/format";
+import { formatNumber, formatPercent } from "@/lib/format";
 import { CustomerDetail } from "./CustomerDetail";
 import { AgingChart, CustomersPanel, InventoryChart, OrdersChart, OtifChart, RevenueChart } from "./DashboardCharts";
 import { KpiDetail } from "./KpiDetail";
-import { delta, formatKpi, KPI_KEYS, type KpiKey } from "./model";
+import { delta, formatKpi, KPI_KEYS, periodLabel, type KpiKey } from "./model";
 
 export default function DashboardApp() {
   const { t, lang } = useI18n();
@@ -30,6 +30,24 @@ export default function DashboardApp() {
   const customer = data.customers.find((c) => c.id === customerId) ?? null;
   const comparison = period === "FY" ? d.vsPrevYear : d.vsPrevQuarter;
 
+  // Written summary: what an operations manager would say about this period.
+  const rev = delta("revenue", data.current.revenue, data.previous.revenue);
+  const inv = delta("inventory", data.current.inventory, data.previous.inventory);
+  const rec = delta("receivables", data.current.receivables, data.previous.receivables);
+  const gap = data.current.otif - OTIF_TARGET;
+  const pct = (n: number) => formatPercent(Math.abs(n), lang, 1);
+  const summary = d.summary({
+    period: periodLabel(period, t),
+    revenue: formatKpi("revenue", data.current.revenue, lang),
+    revenueChange: d.change(pct(rev.change), rev.change >= 0),
+    comparison,
+    otif: formatPercent(data.current.otif, lang, 1),
+    otifVsTarget: d.vsTarget(formatNumber(Math.abs(gap), lang, 1), gap >= 0),
+    inventoryMove: d.move(pct(inv.change), inv.change >= 0),
+    receivablesMove: d.move(pct(rec.change), rec.change >= 0),
+  });
+  const view = period === "FY" ? d.charts.monthly : d.charts.weekly;
+
   return (
     <div className="@container relative h-full overflow-hidden bg-ink-900 text-fg">
       <div className="h-full overflow-y-auto scrollbar-thin">
@@ -45,7 +63,10 @@ export default function DashboardApp() {
             </div>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[11px] text-fg-subtle @3xl:hidden">{d.period}</span>
+            <p className="text-[11px] text-fg-subtle" aria-live="polite">
+              <span className="sr-only">{d.period}: </span>
+              {d.periodRange[period]} · {view.toLowerCase()}
+            </p>
             <div role="group" aria-label={d.period} className="flex rounded-lg border border-line bg-ink-850 p-0.5">
               {PERIODS.map((p) => (
                 <button
@@ -67,6 +88,17 @@ export default function DashboardApp() {
         </header>
 
         <div className="space-y-3 p-4 @3xl:p-5">
+          <section aria-labelledby="dash-summary" className="flex gap-3 rounded-xl border border-line bg-ink-850/60 px-4 py-3">
+            <FileText className="mt-0.5 size-4 shrink-0 text-[#8fb8f6]" aria-hidden />
+            <div>
+              <h4 id="dash-summary" className="font-mono text-[10px] uppercase tracking-[0.18em] text-fg-subtle">
+                {d.summaryTitle}
+              </h4>
+              <p key={`${period}-${lang}`} className="mt-1 animate-[rise_0.5s_cubic-bezier(0.16,1,0.3,1)] text-[13px] leading-relaxed text-fg">
+                {summary}
+              </p>
+            </div>
+          </section>
           {/* ---------- KPIs ---------- */}
           <ul className="grid grid-cols-2 gap-3 @3xl:grid-cols-3 @5xl:grid-cols-5">
             {KPI_KEYS.map((key, i) => {
@@ -100,6 +132,12 @@ export default function DashboardApp() {
                           {dl.unit}
                         </span>{" "}
                         <span className="text-fg-subtle">{comparison}</span>
+                        {key === "otif" ? (
+                          <span className="mt-1.5 flex items-center gap-1.5 whitespace-nowrap text-fg-muted">
+                            <span className={cn("size-1.5 rounded-full", cur >= OTIF_TARGET ? "bg-good" : "bg-warning")} aria-hidden />
+                            {cur >= OTIF_TARGET ? d.target.on : d.target.below}
+                          </span>
+                        ) : null}
                       </span>
                       <Sparkline values={spark} />
                     </span>
@@ -123,7 +161,7 @@ export default function DashboardApp() {
       </div>
 
       <KpiDetail kpi={kpi} period={period} current={data.current} previous={data.previous} points={data.points} onClose={() => setKpi(null)} />
-      <CustomerDetail customer={customer} period={period} onClose={() => setCustomerId(null)} />
+      <CustomerDetail customer={customer} avgDso={Math.round(data.customers.reduce((a, c) => a + c.dso, 0) / data.customers.length)} period={period} onClose={() => setCustomerId(null)} />
     </div>
   );
 }

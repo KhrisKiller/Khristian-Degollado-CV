@@ -86,7 +86,7 @@ export default function InventoryApp() {
   const [view, setView] = useState<View>("dashboard");
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [selectedSku, setSelectedSku] = useState<string | null>(null);
-  const [form, setForm] = useState<{ open: boolean; sku?: string }>({ open: false });
+  const [form, setForm] = useState<{ open: boolean; sku?: string; type?: MovementType }>({ open: false });
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
 
   const selected = useMemo(() => state.products.find((p) => p.sku === selectedSku) ?? null, [state.products, selectedSku]);
@@ -210,6 +210,7 @@ export default function InventoryApp() {
                   now={state.openedAt}
                   onOpenInventory={openInventory}
                   onOpenMovements={() => setView("movements")}
+                  onQuickAction={(type) => setForm({ open: true, type })}
                   onSelect={setSelectedSku}
                 />
               ) : view === "inventory" ? (
@@ -233,6 +234,7 @@ export default function InventoryApp() {
       <MovementForm
         open={form.open}
         presetSku={form.sku}
+        presetType={form.type}
         products={state.products}
         onClose={() => setForm({ open: false })}
         onSubmit={register}
