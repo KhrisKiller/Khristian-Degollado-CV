@@ -8,7 +8,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/khristian-degollado",
   github: "https://github.com/KhrisKiller",
   /** International format, digits only (used for wa.me links). */
-  whatsapp: "524401468110",
+  whatsapp: "524401468119",
   cv: {
     en: "/cv/Khristian-Degollado-CV.pdf",
     es: "/cv/Khristian-Degollado-CV-ES.pdf",
