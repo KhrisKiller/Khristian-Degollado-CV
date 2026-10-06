@@ -69,7 +69,7 @@ function FormBody({ presetSku, presetType, products, onClose, onSubmit }: Props)
         <h4 id="inv-form-title" className="text-[15px] font-semibold">
           {f.title}
         </h4>
-        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 place-items-center rounded-lg text-fg-muted hover:bg-white/5 hover:text-fg">
+        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 place-items-center rounded-lg text-fg-muted hover:bg-overlay/5 hover:text-fg">
           <X className="size-4" aria-hidden />
         </button>
       </div>
@@ -87,7 +87,7 @@ function FormBody({ presetSku, presetType, products, onClose, onSubmit }: Props)
           >
             {products.map((p) => (
               <option key={p.sku} value={p.sku} className="bg-ink-850">
-                {p.sku} — {p.name}
+                {p.sku} — {l(p.name)}
                 {p.variant ? ` · ${l(p.variant)}` : ""}
               </option>
             ))}

@@ -37,7 +37,7 @@ function ProblemVisual() {
         <p
           key={note}
           className={cn(
-            "absolute max-w-[46%] rounded-md border border-[#e9d9a8]/20 bg-[#2a2516] px-4 py-3 font-serif text-lg italic leading-snug text-[#f1e3b5] shadow-[0_12px_30px_-10px_rgb(0_0_0/0.8)]",
+            "absolute max-w-[46%] rounded-md border border-[#e9d9a8]/20 bg-[#2a2516] px-4 py-3 font-serif text-lg italic leading-snug text-[#f1e3b5] shadow-[0_12px_30px_-10px_rgb(0_0_0/0.8)] light:border-[#e9d9a8] light:bg-[#fff6d6] light:text-[#5c4a12] light:shadow-[0_12px_30px_-14px_rgb(92_74_18/0.35)]",
             spots[i],
           )}
         >
@@ -89,10 +89,10 @@ function DataVisual() {
   const { t, l } = useI18n();
   const cols = t.approach.visuals.data.columns;
   const rows = [
-    ["MF-100", "+250", "A-03", { en: "Production", es: "Producción" }],
-    ["MC-012", "−96", "B-11", { en: "Outbound", es: "Salida" }],
-    ["MN-100", "+300", "A-07", { en: "Inbound", es: "Entrada" }],
-    ["FL-020", "−12", "C-02", { en: "Adjustment", es: "Ajuste" }],
+    ["PT-302", "+250", "A-03", { en: "Production", es: "Producción" }],
+    ["PT-301", "−96", "B-11", { en: "Outbound", es: "Salida" }],
+    ["MP-101", "+40", "R-07", { en: "Inbound", es: "Entrada" }],
+    ["MP-102", "−2", "R-02", { en: "Adjustment", es: "Ajuste" }],
   ] as const;
   return (
     <div className="flex h-full items-center">
@@ -144,12 +144,12 @@ function SystemVisual() {
 }
 
 function InsightVisual() {
-  const { t } = useI18n();
+  const { t, l } = useI18n();
   const v = t.approach.visuals.insight;
   const rows = [
-    { name: "Flor", sku: "FL-020", stock: 0, min: 150, days: 0, status: "out" as const },
-    { name: "Mega FDA", sku: "MF-100", stock: 120, min: 250, days: 5, status: "low" as const },
-    { name: "Colchón", sku: "CL-300", stock: 42, min: 50, days: 14, status: "low" as const },
+    { name: { en: "Almonds", es: "Almendra" }, sku: "MP-103", stock: 0, min: 8, days: 0, status: "out" as const },
+    { name: { en: "Cocoa granola", es: "Granola de cacao" }, sku: "PT-302", stock: 120, min: 250, days: 5, status: "low" as const },
+    { name: { en: "Honey", es: "Miel de abeja" }, sku: "MP-102", stock: 9, min: 12, days: 7, status: "low" as const },
   ];
   return (
     <div className="flex h-full items-center">
@@ -166,11 +166,11 @@ function InsightVisual() {
               style={{ animationDelay: `${100 + i * 120}ms` }}
             >
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-fg">{r.name}</p>
+                <p className="text-sm text-fg">{l(r.name)}</p>
                 <p className="font-mono text-[11px] text-fg-subtle">
                   {r.sku} · {r.stock}/{r.min} · {r.days} {v.coverage}
                 </p>
-                <span className="relative mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]" aria-hidden>
+                <span className="relative mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-overlay/[0.06]" aria-hidden>
                   <span
                     className={cn("absolute inset-y-0 left-0 rounded-full", r.status === "out" ? "bg-critical" : "bg-warning/80")}
                     style={{ width: `${(r.stock / (r.min * 1.6)) * 100}%` }}
@@ -212,10 +212,10 @@ function DecisionVisual() {
         <p className="mt-3 text-xl font-semibold leading-snug tracking-[-0.02em]">{v.text}</p>
         <p className="mt-2 text-sm text-fg-muted">{v.reason}</p>
         <svg viewBox="0 0 300 70" className="mt-5 h-16 w-full" aria-hidden>
-          <line x1="0" x2="300" y1="48" y2="48" stroke="#fab219" strokeOpacity="0.6" strokeDasharray="4 4" />
+          <line x1="0" x2="300" y1="48" y2="48" stroke="var(--color-warning)" strokeOpacity="0.6" strokeDasharray="4 4" />
           <polyline points="0,12 50,18 100,24 150,31 200,40 230,46" fill="none" stroke="#ec6534" strokeWidth="2" strokeLinecap="round" />
           <polyline points="230,46 250,20 300,22" fill="none" stroke="#2fb35a" strokeWidth="2" strokeDasharray="4 3" strokeLinecap="round" />
-          <circle cx="230" cy="46" r="4" fill="#ec6534" stroke="#14161b" strokeWidth="2" />
+          <circle cx="230" cy="46" r="4" fill="#ec6534" stroke="var(--color-ink-850)" strokeWidth="2" />
         </svg>
         <p className="mt-3 text-[11px] text-fg-subtle">{v.confidence}</p>
       </div>

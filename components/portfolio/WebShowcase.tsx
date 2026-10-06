@@ -51,7 +51,7 @@ export function WebShowcase() {
                 onClick={() => setDemo(id)}
                 className={cn(
                   "relative flex flex-col items-start gap-1 rounded-xl border px-4 py-3 text-left transition-colors sm:min-w-56",
-                  demo === id ? "border-line-strong bg-white/[0.04]" : "border-line hover:border-line-strong",
+                  demo === id ? "border-line-strong bg-overlay/[0.04]" : "border-line hover:border-line-strong",
                 )}
               >
                 {demo === id ? <m.span layoutId="web-tab" className="absolute inset-x-4 -bottom-px h-px bg-accent" /> : null}
@@ -78,7 +78,7 @@ export function WebShowcase() {
                       device === d ? "text-fg" : "text-fg-subtle hover:text-fg-muted",
                     )}
                   >
-                    {device === d ? <m.span layoutId="device-pill" className="absolute inset-0 rounded-full bg-white/10" /> : null}
+                    {device === d ? <m.span layoutId="device-pill" className="absolute inset-0 rounded-full bg-overlay/10" /> : null}
                     <Icon className="relative size-4" aria-hidden />
                   </button>
                 );
@@ -120,7 +120,7 @@ export function WebShowcase() {
             <BriefItem label={t.web.briefLabels.palette}>
               <span className="flex gap-1.5">
                 {DEMOS[demo].palette.map((c) => (
-                  <span key={c} className="size-5 rounded-full ring-1 ring-white/15" style={{ background: c }} title={c} />
+                  <span key={c} className="size-5 rounded-full ring-1 ring-overlay/15" style={{ background: c }} title={c} />
                 ))}
               </span>
             </BriefItem>
@@ -144,7 +144,7 @@ export function WebShowcase() {
                 type="button"
                 onClick={() => setFullscreen(false)}
                 aria-label={t.web.exitFullscreen}
-                className="grid size-7 place-items-center rounded-full text-fg-muted hover:bg-white/10 hover:text-fg"
+                className="grid size-7 place-items-center rounded-full text-fg-muted hover:bg-overlay/10 hover:text-fg"
               >
                 <X className="size-4" aria-hidden />
               </button>

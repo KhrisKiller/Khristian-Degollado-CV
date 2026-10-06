@@ -62,21 +62,23 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#07080a",
-  colorScheme: "dark",
+  colorScheme: "dark light",
 };
 
 /**
  * Runs before first paint:
  *  - marks JS as available (enables reveal animations; content stays visible without JS)
  *  - sets <html lang> from saved preference or browser language
+ *  - applies the saved light/dark theme (no flash of the wrong theme)
  *  - skips the intro on repeat visits within the same session
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('kd-lang');var n=((navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();d.lang=(s==='en'||s==='es')?s:((n==='es'||n.indexOf('es-')===0)?'es':'en');}catch(e){}try{if(sessionStorage.getItem('kd-intro'))d.classList.add('kd-skip-intro');sessionStorage.setItem('kd-intro','1');}catch(e){}})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(localStorage.getItem('kd-theme')==='light'){d.dataset.theme='light';var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content','#f6f5f2');}}catch(e){}try{var s=localStorage.getItem('kd-lang');var n=((navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();d.lang=(s==='en'||s==='es')?s:((n==='es'||n.indexOf('es-')===0)?'es':'en');}catch(e){}try{if(sessionStorage.getItem('kd-intro'))d.classList.add('kd-skip-intro');sessionStorage.setItem('kd-intro','1');}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
+      data-theme="dark"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} antialiased`}
     >

@@ -59,14 +59,14 @@ function DrawerBody({ product, history, movements, onClose, onRegister }: Props 
             {product.sku} · {l(categories[product.category])} · {l(warehouses[product.warehouse])}
           </p>
           <h4 id="inv-drawer-title" className="mt-1 truncate text-lg font-semibold">
-            {product.name}
+            {l(product.name)}
             {product.variant ? <span className="font-normal text-fg-muted"> · {l(product.variant)}</span> : null}
           </h4>
           <div className="mt-2">
             <StatusBadge status={status} />
           </div>
         </div>
-        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 shrink-0 place-items-center rounded-lg text-fg-muted hover:bg-white/5 hover:text-fg">
+        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 shrink-0 place-items-center rounded-lg text-fg-muted hover:bg-overlay/5 hover:text-fg">
           <X className="size-4" aria-hidden />
         </button>
       </div>
@@ -101,13 +101,13 @@ function DrawerBody({ product, history, movements, onClose, onRegister }: Props 
                 <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={48} tickFormatter={(v: number) => formatNumber(v, lang)} />
                 <ReferenceLine
                   y={product.min}
-                  stroke="#fab219"
+                  stroke="var(--color-warning)"
                   strokeOpacity={0.7}
                   strokeDasharray="4 4"
-                  label={{ value: inv.detail.minLine, position: "insideTopRight", fill: "#a3a9b3", fontSize: 10 }}
+                  label={{ value: inv.detail.minLine, position: "insideTopRight", fill: "var(--color-fg-muted)", fontSize: 10 }}
                 />
                 <Tooltip
-                  cursor={{ stroke: "rgb(255 255 255 / 0.2)" }}
+                  cursor={{ stroke: "var(--chart-cursor-line)" }}
                   content={({ active, payload }) =>
                     active && payload?.length ? (
                       <ChartTooltipBox
@@ -117,7 +117,7 @@ function DrawerBody({ product, history, movements, onClose, onRegister }: Props 
                     ) : null
                   }
                 />
-                <Area type="monotone" dataKey="stock" stroke={SERIES.s1} strokeWidth={2} fill="url(#inv-area)" activeDot={{ r: 4, stroke: "#14161b", strokeWidth: 2 }} />
+                <Area type="monotone" dataKey="stock" stroke={SERIES.s1} strokeWidth={2} fill="url(#inv-area)" activeDot={{ r: 4, stroke: "var(--color-ink-850)", strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>

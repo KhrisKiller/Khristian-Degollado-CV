@@ -10,6 +10,8 @@ const en = {
     switchTo: "Switch language to",
     primaryNav: "Primary",
     progress: "Reading progress",
+    themeLight: "Switch to light mode",
+    themeDark: "Switch to dark mode",
     close: "Close",
   },
   loader: {
@@ -39,8 +41,8 @@ const en = {
     ctaSecondary: "Download CV",
     proofTitle: "Verified work",
     proof: [
-      { value: "Inventory system", label: "Designed, programmed and deployed at Fiesta Colorín" },
-      { value: "3 brand websites", label: "Built and shipped on Cloudflare and Vercel" },
+      { value: "Inventory system", label: "Designed and programmed by me, in production use" },
+      { value: "3 brand websites", label: "Built and published for a manufacturer's online sales" },
       { value: "QuickBooks Online", label: "Certified ProAdvisor, Intuit" },
     ],
     scroll: "Scroll to explore",
@@ -101,7 +103,7 @@ const en = {
     chapter: "I organize data. I build systems.",
     title: "An inventory system, built the way a plant floor uses it.",
     subtitle:
-      "At Fiesta Colorín I designed, programmed and deployed an inventory system covering the catalog, materials, BOM, movements and valuation. This prototype rebuilds its core with fictional data: stock, minimums, movements and alerts.",
+      "I have designed, programmed and put into production an inventory system covering the catalog, materials, BOM, movements and valuation. This prototype rebuilds its core for a fictional food manufacturer: stock, minimums, movements and alerts.",
     model: {
       title: "How stock moves",
       flows: [
@@ -119,7 +121,7 @@ const en = {
     chapter: "I visualize information.",
     title: "A KPI dashboard that explains its own numbers.",
     subtitle:
-      "Modeled on the weekly KPI dashboard I programmed at Fiesta Colorín. Here it follows a fictional distributor for a full year, and every KPI has a definition, a target and a drill-down.",
+      "Modeled on the weekly KPI dashboards I program for real operations. Here it follows a fictional distributor for a full year, and every KPI has a definition, a target and a drill-down.",
     points: [
       "A written summary that changes with the period",
       "Definitions and formulas for every KPI",
@@ -171,23 +173,23 @@ const en = {
         label: "Decision",
         focus: "Replenishment action",
         title: "Act before the shelf is empty.",
-        text: "Reorder Mega FDA on Tuesday instead of discovering the stockout on Friday.",
+        text: "Schedule a cocoa granola run on Tuesday instead of discovering the stockout on Friday.",
       },
     ],
     links: { data: "See the movement log", system: "Open the inventory system", insight: "See the alerts" },
     visuals: {
       problem: {
-        notes: ["Mega FDA: 120 or 210?", "Flor: none left!", "Count again Monday", "Who moved the pallets?"],
+        notes: ["Cocoa granola: 120 or 210?", "Almonds: none left!", "Count again Monday", "Who moved the pallets?"],
         alert: "3 stockouts this month",
       },
       process: ["Reception", "Production", "Storage", "Dispatch"],
       processGap: "Information lost here",
       data: { columns: ["SKU", "Qty", "Location", "Type"] },
-      system: { title: "Register movement", product: "Mega FDA", type: "Production", qty: "+250", button: "Register" },
+      system: { title: "Register movement", product: "Cocoa granola 500 g", type: "Production", qty: "+250", button: "Register" },
       insight: { title: "Stock alerts", coverage: "days of coverage", min: "Minimum", low: "Low stock", out: "Out of stock" },
       decision: {
         title: "Recommended action",
-        text: "Reorder 380 units of Mega FDA",
+        text: "Produce 380 bags of cocoa granola",
         reason: "Coverage falls below 5 days by Thursday.",
         confidence: "Based on 30 days of movements",
       },
@@ -208,7 +210,7 @@ const en = {
     chapter: "Systems run the operation. Websites are where customers meet it.",
     title: "Two brands, designed from opposite directions.",
     subtitle:
-      "At Fiesta Colorín I built and deployed websites for three company brands. AURA and NOVA show the range: two fictional companies, two opposite identities, both fully interactive.",
+      "I have built and published websites for three brands. AURA and NOVA show the range: two fictional companies, two opposite identities, both fully interactive.",
     demoLabel: "Live demo",
     tryOverlay: "Interactive · scroll and click inside",
     fullscreen: "Full screen",
@@ -254,10 +256,10 @@ const en = {
         track: 2,
         flow: ["Inventory", "Operations", "Dashboards", "Process improvement"],
         highlights: [
-          "Designed, programmed and deployed an inventory system on Cloudflare: catalog, materials, BOM, movements and valuation in MXN and USD",
-          "Programmed a weekly KPI dashboard hosted on Cloudflare",
+          "Designed, programmed and put into production an inventory system: catalog, materials, BOM, movements and valuation in MXN and USD",
+          "Programmed a weekly KPI dashboard",
           "Built a 6-month inventory projection for two suppliers",
-          "Built and deployed websites for 3 company brands on Cloudflare and Vercel, as part of the online sales project",
+          "Built and published websites for 3 company brands, as part of the online sales project",
           "Recorded invoices, customer payments and credit memos in QuickBooks Online",
           "Reviewed and corrected operational documentation and product spec sheets",
         ],

@@ -31,7 +31,7 @@ export function Skills() {
                 <p className="text-sm text-fg-subtle">{meta.caption}</p>
                 <ul className="mt-5 flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
-                    <li key={item.en} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[13px] text-fg">
+                    <li key={item.en} className="rounded-lg border border-line bg-overlay/[0.02] px-2.5 py-1.5 text-[13px] text-fg">
                       {l(item)}
                     </li>
                   ))}

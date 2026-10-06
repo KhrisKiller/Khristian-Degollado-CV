@@ -21,7 +21,7 @@ export function Hero() {
 
       <div className="container-page grid items-center gap-14 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pb-28">
         <div>
-          <p className="hero-rise inline-flex items-center gap-2 rounded-full border border-line-strong bg-white/[0.03] py-1 pl-2.5 pr-3 text-xs text-fg-muted" style={d(0)}>
+          <p className="hero-rise inline-flex items-center gap-2 rounded-full border border-line-strong bg-overlay/[0.03] py-1 pl-2.5 pr-3 text-xs text-fg-muted" style={d(0)}>
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-good/70" aria-hidden />
               <span className="relative inline-flex size-2 rounded-full bg-good" aria-hidden />

@@ -5,9 +5,9 @@ import { cn } from "@/lib/cn";
 function WindowDots() {
   return (
     <div className="flex items-center gap-1.5" aria-hidden>
-      <span className="size-2.5 rounded-full bg-white/15" />
-      <span className="size-2.5 rounded-full bg-white/15" />
-      <span className="size-2.5 rounded-full bg-white/15" />
+      <span className="size-2.5 rounded-full bg-overlay/15" />
+      <span className="size-2.5 rounded-full bg-overlay/15" />
+      <span className="size-2.5 rounded-full bg-overlay/15" />
     </div>
   );
 }
@@ -31,7 +31,7 @@ export function BrowserFrame({ url, label, actions, children, className }: Brows
     >
       <div className="flex h-11 items-center gap-3 border-b border-line px-4">
         <WindowDots />
-        <div className="mx-auto flex h-7 min-w-0 max-w-sm flex-1 items-center justify-center gap-1.5 rounded-md bg-white/[0.04] px-3 font-mono text-[11px] text-fg-subtle">
+        <div className="mx-auto flex h-7 min-w-0 max-w-sm flex-1 items-center justify-center gap-1.5 rounded-md bg-overlay/[0.04] px-3 font-mono text-[11px] text-fg-subtle">
           <Lock className="size-3 shrink-0" aria-hidden />
           <span className="truncate">{url}</span>
         </div>

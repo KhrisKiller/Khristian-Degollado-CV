@@ -54,7 +54,7 @@ export default function DashboardApp() {
         {/* ---------- Header ---------- */}
         <header className="sticky top-0 z-20 flex flex-col gap-3 border-b border-line bg-ink-900/90 px-4 py-3 backdrop-blur @3xl:flex-row @3xl:items-center @3xl:justify-between @3xl:px-5">
           <div className="flex items-center gap-3">
-            <span className="grid size-8 place-items-center rounded-lg bg-series-2/20 text-[#8fb8f6]">
+            <span className="grid size-8 place-items-center rounded-lg bg-series-2/20 text-series-2">
               <BarChart3 className="size-4" aria-hidden />
             </span>
             <div className="leading-tight">
@@ -79,7 +79,7 @@ export default function DashboardApp() {
                     period === p ? "text-fg" : "text-fg-muted hover:text-fg",
                   )}
                 >
-                  {period === p ? <m.span layoutId="dash-period" className="absolute inset-0 rounded-md bg-white/[0.09]" transition={{ type: "spring", stiffness: 420, damping: 34 }} /> : null}
+                  {period === p ? <m.span layoutId="dash-period" className="absolute inset-0 rounded-md bg-overlay/[0.09]" transition={{ type: "spring", stiffness: 420, damping: 34 }} /> : null}
                   <span className="relative">{p === "FY" ? "2026" : `${d.quarterPrefix}${p[1]}`}</span>
                 </button>
               ))}
@@ -89,7 +89,7 @@ export default function DashboardApp() {
 
         <div className="space-y-3 p-4 @3xl:p-5">
           <section aria-labelledby="dash-summary" className="flex gap-3 rounded-xl border border-line bg-ink-850/60 px-4 py-3">
-            <FileText className="mt-0.5 size-4 shrink-0 text-[#8fb8f6]" aria-hidden />
+            <FileText className="mt-0.5 size-4 shrink-0 text-series-2" aria-hidden />
             <div>
               <h4 id="dash-summary" className="font-mono text-[10px] uppercase tracking-[0.18em] text-fg-subtle">
                 {d.summaryTitle}
@@ -175,8 +175,8 @@ function Sparkline({ values }: { values: number[] }) {
   const last = pts.split(" ").pop()!.split(",");
   return (
     <svg viewBox="0 0 64 24" className="h-6 w-16 shrink-0 overflow-visible" aria-hidden>
-      <polyline points={pts} fill="none" stroke="#858c97" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={last[0]} cy={last[1]} r="2.5" fill="#ec6534" stroke="#0f1115" strokeWidth="1.5" />
+      <polyline points={pts} fill="none" stroke="var(--color-fg-subtle)" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={last[0]} cy={last[1]} r="2.5" fill="#ec6534" stroke="var(--color-ink-850)" strokeWidth="1.5" />
     </svg>
   );
 }

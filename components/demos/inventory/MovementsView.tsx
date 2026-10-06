@@ -19,7 +19,7 @@ export function MovementsView({ products, movements, onSelect }: Props) {
 
   const label = (sku: string) => {
     const p = bySku.get(sku);
-    return p ? `${p.name}${p.variant ? ` · ${l(p.variant)}` : ""}` : sku;
+    return p ? `${l(p.name)}${p.variant ? ` · ${l(p.variant)}` : ""}` : sku;
   };
 
   return (
@@ -36,7 +36,7 @@ export function MovementsView({ products, movements, onSelect }: Props) {
               onClick={() => setType(k)}
               className={cn(
                 "inline-flex shrink-0 items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[12px] transition-colors",
-                type === k ? "border-line-strong bg-white/[0.07] text-fg" : "border-line text-fg-muted hover:text-fg",
+                type === k ? "border-line-strong bg-overlay/[0.07] text-fg" : "border-line text-fg-muted hover:text-fg",
               )}
             >
               {Icon ? <Icon className="size-3.5" aria-hidden /> : null}

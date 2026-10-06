@@ -46,7 +46,7 @@ export function Approach() {
         <SectionHeader index="04" eyebrow={a.eyebrow} chapter={a.chapter} title={a.title} subtitle={a.body} titleId="about-title" />
 
         <Reveal className="mt-8">
-          <p className="inline-flex flex-wrap items-center gap-2 rounded-full border border-line bg-white/[0.02] px-3.5 py-1.5 text-[13px] text-fg-muted">
+          <p className="inline-flex flex-wrap items-center gap-2 rounded-full border border-line bg-overlay/[0.02] px-3.5 py-1.5 text-[13px] text-fg-muted">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">{a.exampleLabel}</span>
             {a.example}
           </p>

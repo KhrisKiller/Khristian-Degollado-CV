@@ -130,10 +130,10 @@ export default function InventoryApp() {
                   aria-current={view === id ? "page" : undefined}
                   className={cn(
                     "relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] transition-colors",
-                    view === id ? "text-fg" : "text-fg-muted hover:bg-white/[0.03] hover:text-fg",
+                    view === id ? "text-fg" : "text-fg-muted hover:bg-overlay/[0.03] hover:text-fg",
                   )}
                 >
-                  {view === id ? <m.span layoutId="inv-nav" className="absolute inset-0 rounded-lg border border-line bg-white/[0.05]" /> : null}
+                  {view === id ? <m.span layoutId="inv-nav" className="absolute inset-0 rounded-lg border border-line bg-overlay/[0.05]" /> : null}
                   <Icon className="relative size-4" aria-hidden />
                   <span className="relative">{inv.nav[id]}</span>
                   {id === "inventory" && alertCount > 0 ? (
@@ -191,7 +191,7 @@ export default function InventoryApp() {
               aria-current={view === id ? "page" : undefined}
               className={cn(
                 "flex flex-1 items-center justify-center gap-1.5 rounded-lg py-1.5 text-[12px] transition-colors",
-                view === id ? "bg-white/[0.06] text-fg" : "text-fg-muted",
+                view === id ? "bg-overlay/[0.06] text-fg" : "text-fg-muted",
               )}
             >
               <Icon className="size-3.5" aria-hidden />

@@ -12,6 +12,8 @@ const es: Dictionary = {
     switchTo: "Cambiar idioma a",
     primaryNav: "Principal",
     progress: "Progreso de lectura",
+    themeLight: "Cambiar a modo claro",
+    themeDark: "Cambiar a modo oscuro",
     close: "Cerrar",
   },
   loader: {
@@ -41,8 +43,8 @@ const es: Dictionary = {
     ctaSecondary: "Descargar CV",
     proofTitle: "Trabajo comprobable",
     proof: [
-      { value: "Sistema de inventario", label: "Diseñado, programado y publicado en Fiesta Colorín" },
-      { value: "3 sitios de marca", label: "Construidos y publicados en Cloudflare y Vercel" },
+      { value: "Sistema de inventario", label: "Diseñado y programado por mí, en uso real" },
+      { value: "3 sitios de marca", label: "Construidos y publicados para las ventas en línea de una manufacturera" },
       { value: "QuickBooks Online", label: "Certified ProAdvisor, Intuit" },
     ],
     scroll: "Desliza para explorar",
@@ -103,7 +105,7 @@ const es: Dictionary = {
     chapter: "Ordeno los datos. Construyo sistemas.",
     title: "Un sistema de inventario, hecho como lo usa el piso de planta.",
     subtitle:
-      "En Fiesta Colorín diseñé, programé y publiqué un sistema de inventario con catálogo, materias primas, BOM, movimientos y valuación. Este prototipo reconstruye su núcleo con datos ficticios: existencias, mínimos, movimientos y alertas.",
+      "He diseñado, programado y puesto en marcha un sistema de inventario con catálogo, materias primas, BOM, movimientos y valuación. Este prototipo reconstruye su núcleo para una manufacturera de alimentos ficticia: existencias, mínimos, movimientos y alertas.",
     model: {
       title: "Cómo se mueve el inventario",
       flows: [
@@ -121,7 +123,7 @@ const es: Dictionary = {
     chapter: "Visualizo la información.",
     title: "Un dashboard de KPIs que explica sus propios números.",
     subtitle:
-      "Basado en el dashboard semanal de KPIs que programé en Fiesta Colorín. Aquí sigue un año completo de un distribuidor ficticio, y cada KPI tiene definición, meta y desglose.",
+      "Basado en los dashboards semanales de KPIs que programo para operaciones reales. Aquí sigue un año completo de un distribuidor ficticio, y cada KPI tiene definición, meta y desglose.",
     points: [
       "Un resumen escrito que cambia con el periodo",
       "Definición y fórmula de cada KPI",
@@ -173,23 +175,23 @@ const es: Dictionary = {
         label: "Decisión",
         focus: "Acción de reabastecimiento",
         title: "Actuar antes de que se vacíe el anaquel.",
-        text: "Reabastecer Mega FDA el martes en lugar de descubrir el faltante el viernes.",
+        text: "Programar una corrida de granola de cacao el martes en lugar de descubrir el faltante el viernes.",
       },
     ],
     links: { data: "Ver la bitácora de movimientos", system: "Abrir el sistema de inventario", insight: "Ver las alertas" },
     visuals: {
       problem: {
-        notes: ["Mega FDA: ¿120 o 210?", "¡Flor: ya no hay!", "Volver a contar el lunes", "¿Quién movió las tarimas?"],
+        notes: ["Granola de cacao: ¿120 o 210?", "¡Almendra: ya no hay!", "Volver a contar el lunes", "¿Quién movió las tarimas?"],
         alert: "3 faltantes este mes",
       },
       process: ["Recepción", "Producción", "Almacén", "Embarque"],
       processGap: "Aquí se pierde la información",
       data: { columns: ["SKU", "Cant.", "Ubicación", "Tipo"] },
-      system: { title: "Registrar movimiento", product: "Mega FDA", type: "Producción", qty: "+250", button: "Registrar" },
+      system: { title: "Registrar movimiento", product: "Granola de cacao 500 g", type: "Producción", qty: "+250", button: "Registrar" },
       insight: { title: "Alertas de inventario", coverage: "días de cobertura", min: "Mínimo", low: "Stock bajo", out: "Agotado" },
       decision: {
         title: "Acción recomendada",
-        text: "Reabastecer 380 unidades de Mega FDA",
+        text: "Producir 380 bolsas de granola de cacao",
         reason: "La cobertura baja de 5 días para el jueves.",
         confidence: "Basado en 30 días de movimientos",
       },
@@ -210,7 +212,7 @@ const es: Dictionary = {
     chapter: "Los sistemas operan el negocio. La web es donde los clientes lo conocen.",
     title: "Dos marcas, diseñadas desde direcciones opuestas.",
     subtitle:
-      "En Fiesta Colorín construí y publiqué los sitios web de tres marcas de la empresa. AURA y NOVA muestran el rango: dos empresas ficticias, dos identidades opuestas, ambas totalmente interactivas.",
+      "He construido y publicado sitios web para tres marcas. AURA y NOVA muestran el rango: dos empresas ficticias, dos identidades opuestas, ambas totalmente interactivas.",
     demoLabel: "Demo en vivo",
     tryOverlay: "Interactivo · desplázate y haz clic dentro",
     fullscreen: "Pantalla completa",
@@ -256,10 +258,10 @@ const es: Dictionary = {
         track: 2,
         flow: ["Inventario", "Operación", "Dashboards", "Mejora de procesos"],
         highlights: [
-          "Diseño, programación y publicación en Cloudflare de un sistema de inventario: catálogo, materias primas, BOM, movimientos y valuación en MXN y USD",
-          "Programación de un dashboard semanal de KPIs alojado en Cloudflare",
+          "Diseño, programación y puesta en marcha de un sistema de inventario: catálogo, materias primas, BOM, movimientos y valuación en MXN y USD",
+          "Programación de un dashboard semanal de KPIs",
           "Proyección de inventario a 6 meses para dos proveedores",
-          "Desarrollo y publicación de sitios web para 3 marcas de la empresa en Cloudflare y Vercel, como parte del proyecto de ventas en línea",
+          "Desarrollo y publicación de sitios web para 3 marcas de la empresa, como parte del proyecto de ventas en línea",
           "Registro de facturas, pagos de clientes y notas de crédito en QuickBooks Online",
           "Revisión y corrección de documentación operativa y fichas técnicas de producto",
         ],

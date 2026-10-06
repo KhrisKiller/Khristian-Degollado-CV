@@ -32,7 +32,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
       if (filters.warehouse !== "all" && p.warehouse !== filters.warehouse) return false;
       if (filters.status !== "all" && stockStatus(p) !== filters.status) return false;
       if (q) {
-        const hay = `${p.sku} ${p.name} ${p.variant ? l(p.variant) : ""} ${l(categories[p.category])}`.toLowerCase();
+        const hay = `${p.sku} ${l(p.name)} ${p.variant ? l(p.variant) : ""} ${l(categories[p.category])}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -75,7 +75,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
               onClick={() => set({ status: s })}
               className={cn(
                 "flex shrink-0 grow items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 transition-colors",
-                filters.status === s ? "bg-white/[0.08] text-fg" : "text-fg-muted hover:text-fg",
+                filters.status === s ? "bg-overlay/[0.08] text-fg" : "text-fg-muted hover:text-fg",
               )}
             >
               {s !== "all" ? (
@@ -118,7 +118,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
         <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-line-strong py-14 text-center">
           <SearchX className="size-6 text-fg-subtle" aria-hidden />
           <p className="text-[13px] text-fg-muted">{inv.empty}</p>
-          <button type="button" onClick={() => onFilters(EMPTY_FILTERS)} className="rounded-lg border border-line-strong px-3 py-1.5 text-[12px] text-fg hover:bg-white/5">
+          <button type="button" onClick={() => onFilters(EMPTY_FILTERS)} className="rounded-lg border border-line-strong px-3 py-1.5 text-[12px] text-fg hover:bg-overlay/5">
             {inv.filters.clear}
           </button>
         </div>
@@ -146,7 +146,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
                   const status = stockStatus(p);
                   const ratio = Math.min(1, p.stock / (p.min * 3));
                   return (
-                    <tr key={p.sku} onClick={() => onSelect(p.sku)} className="group cursor-pointer bg-ink-900 transition-colors hover:bg-white/[0.025]">
+                    <tr key={p.sku} onClick={() => onSelect(p.sku)} className="group cursor-pointer bg-ink-900 transition-colors hover:bg-overlay/[0.025]">
                       <td className="px-3 py-2.5 font-mono text-[12px] text-fg-muted">{p.sku}</td>
                       <td className="px-3 py-2.5">
                         <button
@@ -158,7 +158,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
                           className="text-left text-fg"
                         >
                           <span className="sr-only">{inv.rowHint} </span>
-                          {p.name}
+                          {l(p.name)}
                           {p.variant ? <span className="block text-[11px] text-fg-subtle">{l(p.variant)}</span> : null}
                         </button>
                       </td>
@@ -166,7 +166,7 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
                       <td className="hidden px-3 py-2.5 text-fg-muted @5xl:table-cell">{l(warehouses[p.warehouse])}</td>
                       <td className="px-3 py-2.5 text-right">
                         <span className="tabular">{formatNumber(p.stock, lang)}</span>
-                        <span className="relative ml-auto mt-1 block h-1 w-16 overflow-hidden rounded-full bg-white/[0.07]" aria-hidden>
+                        <span className="relative ml-auto mt-1 block h-1 w-16 overflow-hidden rounded-full bg-overlay/[0.07]" aria-hidden>
                           <span
                             className={cn("absolute inset-y-0 left-0 rounded-full", status === "ok" ? "bg-good/70" : status === "low" ? "bg-warning/80" : "bg-critical")}
                             style={{ width: `${Math.max(status === "out" ? 0 : 4, ratio * 100)}%` }}
@@ -196,12 +196,12 @@ export function InventoryTableView({ products, filters, onFilters, onSelect }: P
                 <button
                   type="button"
                   onClick={() => onSelect(p.sku)}
-                  className="flex w-full items-center gap-3 rounded-xl border border-line bg-ink-850 p-3 text-left active:bg-white/[0.04]"
+                  className="flex w-full items-center gap-3 rounded-xl border border-line bg-ink-850 p-3 text-left active:bg-overlay/[0.04]"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="font-mono text-[11px] text-fg-subtle">{p.sku}</p>
                     <p className="truncate text-[14px] text-fg">
-                      {p.name}
+                      {l(p.name)}
                       {p.variant ? <span className="text-fg-subtle"> · {l(p.variant)}</span> : null}
                     </p>
                     <p className="mt-1 text-[12px] text-fg-muted">

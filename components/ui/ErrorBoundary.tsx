@@ -44,7 +44,7 @@ function DemoFallback({ onRetry, className }: { onRetry: () => void; className?:
       <button
         type="button"
         onClick={onRetry}
-        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-4 py-2 text-sm text-fg hover:bg-white/5"
+        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-4 py-2 text-sm text-fg hover:bg-overlay/5"
       >
         <RotateCcw className="size-4" aria-hidden />
         {t.common.retry}

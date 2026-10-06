@@ -22,6 +22,6 @@ export function ChartTooltipBox({ title, rows }: { title?: ReactNode; rows: { la
   );
 }
 
-export const AXIS_TICK = { fill: "#858c97", fontSize: 11 } as const;
-export const GRID_STROKE = "rgb(255 255 255 / 0.06)";
+export const AXIS_TICK = { fill: "var(--color-fg-subtle)", fontSize: 11 } as const;
+export const GRID_STROKE = "var(--chart-grid)";
 export const SERIES = { s1: "#ec6534", s2: "#3f86ee", s3: "#1a9a71" } as const;

@@ -36,7 +36,7 @@ export function MovementBadge({ type }: { type: MovementType }) {
   const Icon = MOVEMENT_ICON[type];
   return (
     <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[12px] text-fg-muted">
-      <span className="grid size-5 place-items-center rounded-md border border-line bg-white/[0.03]">
+      <span className="grid size-5 place-items-center rounded-md border border-line bg-overlay/[0.03]">
         <Icon className="size-3" aria-hidden />
       </span>
       {t.inventory.movementTypes[type]}

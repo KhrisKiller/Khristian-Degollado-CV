@@ -4,6 +4,7 @@ import { ArrowUp } from "lucide-react";
 import { useI18n } from "@/components/providers/LanguageProvider";
 import { profile } from "@/data/profile";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Footer() {
   const { t } = useI18n();
@@ -19,6 +20,7 @@ export function Footer() {
         <div className="flex flex-col items-start gap-5 md:items-end">
           <div className="flex items-center gap-6">
             <LanguageSwitcher />
+            <ThemeToggle />
             <a href="#top" className="inline-flex items-center gap-1.5 text-xs text-fg-muted transition-colors hover:text-fg">
               {t.footer.top}
               <ArrowUp className="size-3.5" aria-hidden />

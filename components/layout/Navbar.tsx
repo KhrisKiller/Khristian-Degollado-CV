@@ -8,6 +8,7 @@ import { Dialog } from "@/components/ui/Dialog";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/cn";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { NAV_ITEMS, type NavKey } from "./nav-items";
 
 function useActiveNav(): NavKey | null {
@@ -90,7 +91,7 @@ export function Navbar() {
                     {active === item.key ? (
                       <m.span
                         layoutId="nav-active"
-                        className="absolute inset-0 -z-10 rounded-full border border-line-strong bg-white/[0.05]"
+                        className="absolute inset-0 -z-10 rounded-full border border-line-strong bg-overlay/[0.05]"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     ) : null}
@@ -103,6 +104,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-3">
             <LanguageSwitcher className="hidden md:flex" />
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setMenuOpen(true)}

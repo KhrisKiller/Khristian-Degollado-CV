@@ -59,8 +59,8 @@ export function RevenueChart({ points, className }: { points: SeriesPoint[]; cla
             <CartesianGrid vertical={false} stroke={GRID_STROKE} />
             <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={8} />
             <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={52} tickFormatter={(v: number) => formatAxis("revenue", v, lang)} />
-            <Tooltip cursor={{ stroke: "rgb(255 255 255 / 0.2)" }} content={tip} />
-            <Area type="monotone" dataKey="revenue" stroke={SERIES.s1} strokeWidth={2} fill="url(#dash-rev)" activeDot={{ r: 4, stroke: "#14161b", strokeWidth: 2 }} animationDuration={700} />
+            <Tooltip cursor={{ stroke: "var(--chart-cursor-line)" }} content={tip} />
+            <Area type="monotone" dataKey="revenue" stroke={SERIES.s1} strokeWidth={2} fill="url(#dash-rev)" activeDot={{ r: 4, stroke: "var(--color-ink-850)", strokeWidth: 2 }} animationDuration={700} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
@@ -80,7 +80,7 @@ export function OrdersChart({ points, className }: { points: SeriesPoint[]; clas
             <CartesianGrid vertical={false} stroke={GRID_STROKE} />
             <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={6} />
             <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={40} tickFormatter={(v: number) => formatNumber(v, lang)} />
-            <Tooltip cursor={{ fill: "rgb(255 255 255 / 0.04)" }} content={tip} />
+            <Tooltip cursor={{ fill: "var(--chart-cursor)" }} content={tip} />
             <Bar dataKey="orders" fill={SERIES.s2} radius={[4, 4, 0, 0]} maxBarSize={22} animationDuration={700} />
           </BarChart>
         </ResponsiveContainer>
@@ -110,9 +110,9 @@ export function OtifChart({ points, className }: { points: SeriesPoint[]; classN
             <CartesianGrid vertical={false} stroke={GRID_STROKE} />
             <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={8} />
             <YAxis domain={[88, 100]} ticks={[88, 91, 94, 97, 100]} tick={AXIS_TICK} axisLine={false} tickLine={false} width={48} tickFormatter={(v: number) => `${v}%`} />
-            <ReferenceLine y={OTIF_TARGET} stroke="#a3a9b3" strokeDasharray="4 4" strokeOpacity={0.6} />
-            <Tooltip cursor={{ stroke: "rgb(255 255 255 / 0.2)" }} content={tip} />
-            <Line type="monotone" dataKey="otif" stroke={SERIES.s3} strokeWidth={2} dot={{ r: 3, fill: SERIES.s3, stroke: "#14161b", strokeWidth: 2 }} activeDot={{ r: 5, stroke: "#14161b", strokeWidth: 2 }} animationDuration={700} />
+            <ReferenceLine y={OTIF_TARGET} stroke="var(--color-fg-muted)" strokeDasharray="4 4" strokeOpacity={0.6} />
+            <Tooltip cursor={{ stroke: "var(--chart-cursor-line)" }} content={tip} />
+            <Line type="monotone" dataKey="otif" stroke={SERIES.s3} strokeWidth={2} dot={{ r: 3, fill: SERIES.s3, stroke: "var(--color-ink-850)", strokeWidth: 2 }} activeDot={{ r: 5, stroke: "var(--color-ink-850)", strokeWidth: 2 }} animationDuration={700} />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -135,8 +135,8 @@ export function InventoryChart({ points, className }: { points: SeriesPoint[]; c
             <CartesianGrid vertical={false} stroke={GRID_STROKE} />
             <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={8} />
             <YAxis domain={[lo, hi]} tick={AXIS_TICK} axisLine={false} tickLine={false} width={52} tickFormatter={(v: number) => formatCompactCurrency(v, lang)} />
-            <Tooltip cursor={{ stroke: "rgb(255 255 255 / 0.2)" }} content={tip} />
-            <Line type="monotone" dataKey="inventory" stroke={SERIES.s2} strokeWidth={2} dot={false} activeDot={{ r: 4, stroke: "#14161b", strokeWidth: 2 }} animationDuration={700} />
+            <Tooltip cursor={{ stroke: "var(--chart-cursor-line)" }} content={tip} />
+            <Line type="monotone" dataKey="inventory" stroke={SERIES.s2} strokeWidth={2} dot={false} activeDot={{ r: 4, stroke: "var(--color-ink-850)", strokeWidth: 2 }} animationDuration={700} />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -163,7 +163,7 @@ export function AgingChart({ buckets, className }: { buckets: { current: number;
             <XAxis dataKey="label" tick={{ ...AXIS_TICK, fontSize: 10 }} axisLine={false} tickLine={false} interval={0} />
             <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={46} tickFormatter={(v: number) => formatCompactCurrency(v, lang)} />
             <Tooltip
-              cursor={{ fill: "rgb(255 255 255 / 0.04)" }}
+              cursor={{ fill: "var(--chart-cursor)" }}
               content={({ active, payload }) =>
                 active && payload?.length ? (
                   <ChartTooltipBox
@@ -182,7 +182,7 @@ export function AgingChart({ buckets, className }: { buckets: { current: number;
               radius={[4, 4, 0, 0]}
               maxBarSize={24}
               animationDuration={700}
-              label={{ position: "top", fill: "#a3a9b3", fontSize: 10, formatter: (v: unknown) => formatCompactCurrency(Number(v), lang) }}
+              label={{ position: "top", fill: "var(--color-fg-muted)", fontSize: 10, formatter: (v: unknown) => formatCompactCurrency(Number(v), lang) }}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -205,8 +205,8 @@ export function CustomersPanel({ rows, selected, onSelect, className }: { rows: 
               onClick={() => onSelect(r.id)}
               aria-haspopup="dialog"
               className={cn(
-                "group grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-white/[0.04]",
-                selected === r.id && "bg-white/[0.05]",
+                "group grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-overlay/[0.04]",
+                selected === r.id && "bg-overlay/[0.05]",
               )}
             >
               <span className="truncate text-[12px] text-fg-muted group-hover:text-fg">{l(r.name)}</span>
@@ -214,8 +214,8 @@ export function CustomersPanel({ rows, selected, onSelect, className }: { rows: 
                 {formatCompactCurrency(r.revenue, lang, 0)}
                 <ChevronRight className="size-3 text-fg-subtle transition-transform group-hover:translate-x-0.5" aria-hidden />
               </span>
-              <span className="col-span-2 block h-1.5 overflow-hidden rounded-full bg-white/[0.05]" aria-hidden>
-                <span className="block h-full rounded-full transition-[width] duration-700 ease-out" style={{ width: `${(r.revenue / max) * 100}%`, background: r.id === "other" ? "#4b5260" : SERIES.s1 }} />
+              <span className="col-span-2 block h-1.5 overflow-hidden rounded-full bg-overlay/[0.05]" aria-hidden>
+                <span className="block h-full rounded-full transition-[width] duration-700 ease-out" style={{ width: `${(r.revenue / max) * 100}%`, background: r.id === "other" ? "var(--color-ink-600)" : SERIES.s1 }} />
               </span>
             </button>
           </li>

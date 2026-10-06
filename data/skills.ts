@@ -42,8 +42,6 @@ export const skillGroups: { items: Localized[]; proof: ProofKey[] }[] = [
   {
     items: [
       { en: "QuickBooks Online (Certified ProAdvisor)", es: "QuickBooks Online (Certified ProAdvisor)" },
-      same("Cloudflare"),
-      same("Vercel"),
       same("Git & GitHub"),
       same("Google Sheets"),
       same("ClickUp"),

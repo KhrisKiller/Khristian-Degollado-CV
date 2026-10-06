@@ -83,7 +83,7 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
                   onClick={() => onQuickAction(type)}
                   className="group flex w-full items-center gap-2.5 rounded-xl border border-line bg-ink-850 px-3 py-2.5 text-left transition-colors hover:border-accent/40 hover:bg-accent/[0.05]"
                 >
-                  <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-white/[0.03] text-fg-muted transition-colors group-hover:text-accent-soft">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-overlay/[0.03] text-fg-muted transition-colors group-hover:text-accent-soft">
                     <Icon className="size-3.5" aria-hidden />
                   </span>
                   <span className="min-w-0 leading-tight">
@@ -132,9 +132,9 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
               <BarChart data={byCategory} layout="vertical" margin={{ top: 4, right: 56, bottom: 4, left: 4 }} barCategoryGap={10}>
                 <CartesianGrid horizontal={false} stroke={GRID_STROKE} />
                 <XAxis type="number" tick={AXIS_TICK} axisLine={false} tickLine={false} tickFormatter={(v: number) => formatCompactCurrency(v, lang)} />
-                <YAxis type="category" dataKey="name" tick={{ ...AXIS_TICK, fill: "#a3a9b3" }} axisLine={false} tickLine={false} width={96} />
+                <YAxis type="category" dataKey="name" tick={{ ...AXIS_TICK, fill: "var(--color-fg-muted)" }} axisLine={false} tickLine={false} width={124} />
                 <Tooltip
-                  cursor={{ fill: "rgb(255 255 255 / 0.04)" }}
+                  cursor={{ fill: "var(--chart-cursor)" }}
                   content={({ active, payload }) =>
                     active && payload?.length ? (
                       <ChartTooltipBox
@@ -149,7 +149,7 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
                   fill={SERIES.s1}
                   radius={[0, 4, 4, 0]}
                   maxBarSize={22}
-                  label={{ position: "right", fill: "#a3a9b3", fontSize: 11, formatter: (v: unknown) => formatCompactCurrency(Number(v), lang) }}
+                  label={{ position: "right", fill: "var(--color-fg-muted)", fontSize: 11, formatter: (v: unknown) => formatCompactCurrency(Number(v), lang) }}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -172,10 +172,10 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
                 const days = coverageDays(p);
                 return (
                   <li key={p.sku}>
-                    <button type="button" onClick={() => onSelect(p.sku)} className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-white/[0.03]">
+                    <button type="button" onClick={() => onSelect(p.sku)} className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-overlay/[0.03]">
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[13px] text-fg">
-                          {p.name} {p.variant ? <span className="text-fg-subtle">· {l(p.variant)}</span> : null}
+                          {l(p.name)} {p.variant ? <span className="text-fg-subtle">· {l(p.variant)}</span> : null}
                         </p>
                         <p className="font-mono text-[11px] text-fg-subtle">
                           {p.sku} · {formatNumber(p.stock, lang)}/{formatNumber(p.min, lang)}
@@ -203,10 +203,10 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={byType} margin={{ top: 18, right: 12, bottom: 0, left: -12 }}>
               <CartesianGrid vertical={false} stroke={GRID_STROKE} />
-              <XAxis dataKey="name" tick={{ ...AXIS_TICK, fill: "#a3a9b3" }} axisLine={false} tickLine={false} />
+              <XAxis dataKey="name" tick={{ ...AXIS_TICK, fill: "var(--color-fg-muted)" }} axisLine={false} tickLine={false} />
               <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} allowDecimals={false} />
               <Tooltip
-                cursor={{ fill: "rgb(255 255 255 / 0.04)" }}
+                cursor={{ fill: "var(--chart-cursor)" }}
                 content={({ active, payload }) =>
                   active && payload?.length ? (
                     <ChartTooltipBox
@@ -219,7 +219,7 @@ export function InventoryDashboardView({ products, movements, now, onOpenInvento
                   ) : null
                 }
               />
-              <Bar dataKey="count" fill={SERIES.s2} radius={[4, 4, 0, 0]} maxBarSize={24} label={{ position: "top", fill: "#a3a9b3", fontSize: 11 }} />
+              <Bar dataKey="count" fill={SERIES.s2} radius={[4, 4, 0, 0]} maxBarSize={24} label={{ position: "top", fill: "var(--color-fg-muted)", fontSize: 11 }} />
             </BarChart>
           </ResponsiveContainer>
         </div>

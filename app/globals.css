@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `light:` variant for the few hand-tuned colors that need a light-mode step */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 /* ------------------------------------------------------------------
    Design tokens
    Dark is the primary identity. Accent = "signal orange", a nod to
@@ -22,6 +25,8 @@
   --color-fg: #eceef1;
   --color-fg-muted: #a3a9b3;
   --color-fg-subtle: #858c97;
+  /* Neutral used for translucent overlays (white on dark, ink on light) */
+  --color-overlay: #ffffff;
   --color-line: rgb(255 255 255 / 0.08);
   --color-line-strong: rgb(255 255 255 / 0.14);
 
@@ -60,6 +65,49 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Chart neutrals (Recharts reads these through var() in SVG attributes)
+------------------------------------------------------------------- */
+:root {
+  --chart-grid: rgb(255 255 255 / 0.06);
+  --chart-cursor: rgb(255 255 255 / 0.04);
+  --chart-cursor-line: rgb(255 255 255 / 0.2);
+}
+
+/* ------------------------------------------------------------------
+   Light theme — same system, re-stepped for a light surface.
+   Accent and status colors darken so text keeps ≥ 4.5:1 contrast.
+------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-ink-950: #f6f5f2;
+  --color-ink-900: #ffffff;
+  --color-ink-850: #fbfaf8;
+  --color-ink-800: #f2f1ed;
+  --color-ink-750: #ebe9e4;
+  --color-ink-700: #e4e2dc;
+  --color-ink-600: #c9c6be;
+
+  --color-fg: #15171b;
+  --color-fg-muted: #474c55;
+  --color-fg-subtle: #5f6570;
+  --color-overlay: #15171b;
+  --color-line: rgb(21 23 27 / 0.1);
+  --color-line-strong: rgb(21 23 27 / 0.18);
+
+  --color-accent: #c2410c;
+  --color-accent-soft: #a8380a;
+  --color-accent-ink: #ffffff;
+
+  --color-good: #15803d;
+  --color-warning: #b45309;
+  --color-critical: #c62828;
+
+  --chart-grid: rgb(21 23 27 / 0.08);
+  --chart-cursor: rgb(21 23 27 / 0.04);
+  --chart-cursor-line: rgb(21 23 27 / 0.25);
+}
+
 @layer base {
   :root {
     color-scheme: dark;
@@ -80,8 +128,8 @@
   }
 
   ::selection {
-    background: rgb(255 122 69 / 0.35);
-    color: #fff;
+    background: rgb(255 122 69 / 0.32);
+    color: inherit;
   }
 
   :focus-visible {
@@ -132,7 +180,7 @@
 
 @utility scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgb(255 255 255 / 0.14) transparent;
+  scrollbar-color: color-mix(in srgb, var(--color-overlay) 16%, transparent) transparent;
 }
 
 @utility no-scrollbar {
@@ -145,8 +193,8 @@
 /* Subtle engineering grid used behind a few sections */
 @utility bg-grid {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--color-overlay) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-overlay) 4%, transparent) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 

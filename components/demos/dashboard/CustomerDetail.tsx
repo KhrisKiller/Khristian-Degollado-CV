@@ -54,7 +54,7 @@ function Body({ customer, avgDso, period, onClose }: Props & { customer: Custome
             {c[customer.health]}
           </span>
         </div>
-        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 shrink-0 place-items-center rounded-lg text-fg-muted hover:bg-white/5 hover:text-fg">
+        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 shrink-0 place-items-center rounded-lg text-fg-muted hover:bg-overlay/5 hover:text-fg">
           <X className="size-4" aria-hidden />
         </button>
       </div>

@@ -50,7 +50,7 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
   ];
   const tooltip = (
     <Tooltip
-      cursor={isFlow ? { fill: "rgb(255 255 255 / 0.04)" } : { stroke: "rgb(255 255 255 / 0.2)" }}
+      cursor={isFlow ? { fill: "var(--chart-cursor)" } : { stroke: "var(--chart-cursor-line)" }}
       content={({ active, payload }) =>
         active && payload?.length ? (
           <ChartTooltipBox title={payload[0].payload.label} rows={[{ label: d.kpis[kpi], value: fmt(payload[0].payload.value), color: SERIES.s1 }]} />
@@ -68,7 +68,7 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
             {d.kpis[kpi]}
           </h4>
         </div>
-        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 place-items-center rounded-lg text-fg-muted hover:bg-white/5 hover:text-fg">
+        <button type="button" onClick={onClose} aria-label={t.a11y.close} className="grid size-8 place-items-center rounded-lg text-fg-muted hover:bg-overlay/5 hover:text-fg">
           <X className="size-4" aria-hidden />
         </button>
       </div>
@@ -90,7 +90,7 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
           </div>
           <div>
             <dt className="text-[11px] text-fg-subtle">{d.detail.formula}</dt>
-            <dd className="mt-1 rounded-md bg-white/[0.04] px-2.5 py-1.5 font-mono text-[12px] text-fg">{d.kpiFormula[kpi]}</dd>
+            <dd className="mt-1 rounded-md bg-overlay/[0.04] px-2.5 py-1.5 font-mono text-[12px] text-fg">{d.kpiFormula[kpi]}</dd>
           </div>
           <div>
             <dt className="text-[11px] text-fg-subtle">{d.detail.why}</dt>
@@ -112,9 +112,9 @@ function Body({ kpi, period, current, previous, points, onClose }: Props & { kpi
               ) : (
                 <LineChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -6 }}>
                   {axes}
-                  {kpi === "otif" ? <ReferenceLine y={OTIF_TARGET} stroke="#a3a9b3" strokeDasharray="4 4" strokeOpacity={0.6} /> : null}
+                  {kpi === "otif" ? <ReferenceLine y={OTIF_TARGET} stroke="var(--color-fg-muted)" strokeDasharray="4 4" strokeOpacity={0.6} /> : null}
                   {tooltip}
-                  <Line type="monotone" dataKey="value" stroke={SERIES.s1} strokeWidth={2} dot={{ r: 3, fill: SERIES.s1, stroke: "#0f1115", strokeWidth: 2 }} activeDot={{ r: 5 }} animationDuration={600} />
+                  <Line type="monotone" dataKey="value" stroke={SERIES.s1} strokeWidth={2} dot={{ r: 3, fill: SERIES.s1, stroke: "var(--color-ink-850)", strokeWidth: 2 }} activeDot={{ r: 5 }} animationDuration={600} />
                 </LineChart>
               )}
             </ResponsiveContainer>

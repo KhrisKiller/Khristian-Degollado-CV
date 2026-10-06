@@ -118,7 +118,7 @@ export function SystemFlow() {
                 onMouseEnter={() => setHeld(i)}
                 onFocus={() => setHeld(i)}
                 onClick={() => setHeld(i)}
-                className="-mx-2 flex h-full w-[calc(100%+1rem)] items-center gap-4 rounded-xl px-2 text-left transition-colors hover:bg-white/[0.025]"
+                className="-mx-2 flex h-full w-[calc(100%+1rem)] items-center gap-4 rounded-xl px-2 text-left transition-colors hover:bg-overlay/[0.025]"
               >
                 <span
                   className={cn(

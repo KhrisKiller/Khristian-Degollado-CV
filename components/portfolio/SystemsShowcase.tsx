@@ -33,7 +33,7 @@ function DemoStage({ windowTitle, hint, children }: { windowTitle: string; hint:
 
 const EFFECT_STYLE: Record<string, string> = {
   "+": "border-good/30 bg-good/10 text-good",
-  "−": "border-line-strong bg-white/[0.04] text-fg",
+  "−": "border-line-strong bg-overlay/[0.04] text-fg",
   "=": "border-accent/30 bg-accent/10 text-accent-soft",
 };
 
